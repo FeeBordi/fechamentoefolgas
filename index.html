@@ -642,10 +642,11 @@ const NAME_RESOLVER = {"map":{"Adailton Costa":"Adailton Costa Damasceno","Adail
 const FOLGA_APPS_URL="https://script.google.com/macros/s/AKfycbxCUoVcKlYueH6jZqbXzwfnSp26DKl5jZlx55Y1TzCNXKsY_XyDeGAnrIYNV-lWCb6p/exec"; const FOLGA_SEGREDO="transccema-folgas";
 const FOLGA_STORE_KEY='folgas_lancadas_v1';
 let folgaAdds={}; // {date:[nomes]}
-function carregarFolgaAdds(){try{const r=localStorage.getItem(FOLGA_STORE_KEY);if(r)folgaAdds=JSON.parse(r)||{};}catch(e){folgaAdds={};}}
+function carregarFolgaAdds(){try{const r=localStorage.getItem(FOLGA_STORE_KEY);if(r)folgaAdds=JSON.parse(r)||{};}catch(e){folgaAdds={};} normalizarFolgaAdds();}
+function normalizarFolgaAdds(){ try{ Object.keys(folgaAdds).forEach(function(k){ var nk=normDataCli(k); if(nk!==k){ var arr=folgaAdds[k]||[]; delete folgaAdds[k]; if(!folgaAdds[nk])folgaAdds[nk]=[]; arr.forEach(function(n){ if(folgaAdds[nk].indexOf(n)<0)folgaAdds[nk].push(n); }); } }); }catch(e){} }
 function normDataCli(s){ s=String(s||"").trim(); var m=s.match(/^(\d{4})-(\d{2})-(\d{2})/); if(m)return m[1]+"-"+m[2]+"-"+m[3]; m=s.match(/^(\d{2})\/(\d{2})\/(\d{4})/); if(m)return m[3]+"-"+m[2]+"-"+m[1]; var M={Jan:"01",Feb:"02",Mar:"03",Apr:"04",May:"05",Jun:"06",Jul:"07",Aug:"08",Sep:"09",Oct:"10",Nov:"11",Dec:"12"}; m=s.match(/\b([A-Z][a-z]{2})\s+(\d{1,2})\s+(\d{4})/); if(m&&M[m[1]])return m[3]+"-"+M[m[1]]+"-"+String(m[2]).padStart(2,"0"); var d=new Date(s); if(!isNaN(d.getTime()))return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); return s; }
 function enviarFolgasNuvem(){ if(!FOLGA_APPS_URL||FOLGA_APPS_URL.indexOf('COLE_AQUI')>=0)return; try{fetch(FOLGA_APPS_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({segredo:FOLGA_SEGREDO,folgaAdds:folgaAdds})});}catch(e){} }
-async function sincronizarFolgasNuvem(){ if(!FOLGA_APPS_URL||FOLGA_APPS_URL.indexOf('COLE_AQUI')>=0)return; try{ const r=await fetch(FOLGA_APPS_URL); const j=await r.json(); if(j&&j.folgas){ for(const d in j.folgas){ folgaAdds[normDataCli(d)]=j.folgas[d]; } try{localStorage.setItem(FOLGA_STORE_KEY,JSON.stringify(folgaAdds));}catch(e){} reconstruirFolgaData(); if(typeof renderMot==='function'){try{renderMot();}catch(e){}} } }catch(e){} }
+async function sincronizarFolgasNuvem(){ if(!FOLGA_APPS_URL||FOLGA_APPS_URL.indexOf('COLE_AQUI')>=0)return; try{ const r=await fetch(FOLGA_APPS_URL); const j=await r.json(); if(j&&j.folgas){ for(const d in j.folgas){ folgaAdds[normDataCli(d)]=j.folgas[d]; } normalizarFolgaAdds(); try{localStorage.setItem(FOLGA_STORE_KEY,JSON.stringify(folgaAdds));}catch(e){} reconstruirFolgaData(); if(typeof renderMot==='function'){try{renderMot();}catch(e){}} } }catch(e){} }
 function salvarFolgaAdds(){try{localStorage.setItem(FOLGA_STORE_KEY,JSON.stringify(folgaAdds));}catch(e){} enviarFolgasNuvem();}
 function _diasEntre(a,b){return Math.round((new Date(b)-new Date(a))/86400000);}
 function _rebuildRest(days){
@@ -2004,7 +2005,7 @@ renderMot();renderP();renderD();calc();
   window.mudarSemana=function(delta){ if(!_semRef) return; _semRef.setDate(_semRef.getDate()+delta*7); renderSemana(); };
   window.renderSemana=function(){
     var F=FD(); if(!F||!F.folgas) return;
-    if(!_semRef) _semRef=mondayOf(new Date(((F.range&&F.range.last)||"2026-08-30")+"T00:00:00"));
+    if(!_semRef){ var _b=(typeof normDataCli==="function")?normDataCli((F.range&&F.range.last)||""):((F.range&&F.range.last)||""); _semRef=mondayOf(new Date((_b||"2026-08-30")+"T00:00:00")); if(isNaN(_semRef.getTime())) _semRef=mondayOf(new Date()); }
     var DIAS=["SEG","TER","QUA","QUI","SEX","S\u00c1B","DOM"]; var cols="",first=null,last=null;
     for(var i=0;i<7;i++){
       var dt=new Date(_semRef); dt.setDate(_semRef.getDate()+i); var ds=d2s(dt);
