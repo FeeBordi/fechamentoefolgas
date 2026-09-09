@@ -645,7 +645,7 @@ let folgaAdds={}; // {date:[nomes]}
 function carregarFolgaAdds(){try{const r=localStorage.getItem(FOLGA_STORE_KEY);if(r)folgaAdds=JSON.parse(r)||{};}catch(e){folgaAdds={};} normalizarFolgaAdds();}
 function normalizarFolgaAdds(){ try{ Object.keys(folgaAdds).forEach(function(k){ var nk=normDataCli(k); if(nk!==k){ var arr=folgaAdds[k]||[]; delete folgaAdds[k]; if(!folgaAdds[nk])folgaAdds[nk]=[]; arr.forEach(function(n){ if(folgaAdds[nk].indexOf(n)<0)folgaAdds[nk].push(n); }); } }); }catch(e){} }
 function normDataCli(s){ s=String(s||"").trim(); var m=s.match(/^(\d{4})-(\d{2})-(\d{2})/); if(m)return m[1]+"-"+m[2]+"-"+m[3]; m=s.match(/^(\d{2})\/(\d{2})\/(\d{4})/); if(m)return m[3]+"-"+m[2]+"-"+m[1]; var M={Jan:"01",Feb:"02",Mar:"03",Apr:"04",May:"05",Jun:"06",Jul:"07",Aug:"08",Sep:"09",Oct:"10",Nov:"11",Dec:"12"}; m=s.match(/\b([A-Z][a-z]{2})\s+(\d{1,2})\s+(\d{4})/); if(m&&M[m[1]])return m[3]+"-"+M[m[1]]+"-"+String(m[2]).padStart(2,"0"); var d=new Date(s); if(!isNaN(d.getTime()))return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); return s; }
-function enviarFolgasNuvem(){ if(!FOLGA_APPS_URL||FOLGA_APPS_URL.indexOf('COLE_AQUI')>=0)return; try{fetch(FOLGA_APPS_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({segredo:FOLGA_SEGREDO,folgaAdds:folgaAdds})});}catch(e){} }
+async function enviarFolgasNuvem(){ if(!FOLGA_APPS_URL||FOLGA_APPS_URL.indexOf('COLE_AQUI')>=0)return false; try{ const r=await fetch(FOLGA_APPS_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({segredo:FOLGA_SEGREDO,folgaAdds:folgaAdds})}); const j=await r.json().catch(function(){return null;}); return !!(j&&j.ok); }catch(e){ return false; } }
 async function sincronizarFolgasNuvem(){ if(!FOLGA_APPS_URL||FOLGA_APPS_URL.indexOf('COLE_AQUI')>=0)return; try{ const r=await fetch(FOLGA_APPS_URL); const j=await r.json(); if(j&&j.folgas){ for(const d in j.folgas){ folgaAdds[normDataCli(d)]=j.folgas[d]; } normalizarFolgaAdds(); try{localStorage.setItem(FOLGA_STORE_KEY,JSON.stringify(folgaAdds));}catch(e){} reconstruirFolgaData(); if(typeof renderMot==='function'){try{renderMot();}catch(e){}} } }catch(e){} }
 function salvarFolgaAdds(){try{localStorage.setItem(FOLGA_STORE_KEY,JSON.stringify(folgaAdds));}catch(e){} enviarFolgasNuvem();}
 function _diasEntre(a,b){return Math.round((new Date(b)-new Date(a))/86400000);}
@@ -808,20 +808,26 @@ function dropFolgaPasteItem(nome){
   renderFolgaPasteResult();
 }
 function limparFolgaPaste(){document.getElementById('folga-paste-box').value='';folgaPasteResult=null;document.getElementById('folga-paste-result').innerHTML='';}
-function confirmarFolgaPaste(){
+async function confirmarFolgaPaste(){
   if(!folgaPasteResult||!folgaPasteResult.recognized.length)return;
   const data=document.getElementById('folga-paste-date').value;
   if(!data){alert('Escolha a data da folga.');return;}
   if(!folgaAdds[data])folgaAdds[data]=[];
   for(const it of folgaPasteResult.recognized){if(!folgaAdds[data].includes(it.name))folgaAdds[data].push(it.name);}
-  salvarFolgaAdds();
+  try{ localStorage.setItem(FOLGA_STORE_KEY,JSON.stringify(folgaAdds)); }catch(e){}
   reconstruirFolgaData();
   const n=folgaPasteResult.recognized.length;
   limparFolgaPaste();
   if(typeof atualizarFolgas==='function')atualizarFolgas();
   recalcFolgaViagem();
   const d=document.getElementById('folga-paste-result');
-  d.innerHTML='<div style="background:rgba(22,163,74,.1);border:1px solid rgba(22,163,74,.3);border-radius:8px;padding:12px;font-size:13px;color:#15803d"><b>'+n+' folga(s) salva(s)</b> em '+_ffmt(_iso(data))+'. Já contam no cálculo das viagens.</div>';
+  d.innerHTML='<div style="background:rgba(234,179,8,.12);border:1px solid rgba(234,179,8,.4);border-radius:8px;padding:12px;font-size:13px;color:#92600a">Enviando '+n+' folga(s) para todos...</div>';
+  const ok = await enviarFolgasNuvem();
+  if(ok){
+    d.innerHTML='<div style="background:rgba(22,163,74,.1);border:1px solid rgba(22,163,74,.3);border-radius:8px;padding:12px;font-size:13px;color:#15803d"><b>\u2713 '+n+' folga(s) salvas e enviadas para TODOS</b> em '+_ffmt(_iso(data))+'.</div>';
+  } else {
+    d.innerHTML='<div style="background:rgba(220,38,38,.1);border:1px solid rgba(220,38,38,.35);border-radius:8px;padding:12px;font-size:13px;color:#b91c1c"><b>\u26a0\ufe0f Salvo s\u00f3 neste aparelho.</b> N\u00e3o consegui enviar para a planilha (todos). Verifique a internet e se est\u00e1 no link certo (selo v8), depois clique em Salvar de novo.</div>';
+  }
 }
 
 // ═══ FIM INTEGRAÇÃO FOLGAS ═══
@@ -1820,7 +1826,7 @@ function baixarCSV() {
 
 // ── INIT ──
 document.getElementById('gb-badge').style.cssText=getBadge(88);
-carregarFolgaAdds();reconstruirFolgaData();sincronizarFolgasNuvem();
+carregarFolgaAdds();reconstruirFolgaData();sincronizarFolgasNuvem();try{setInterval(function(){ if(typeof sincronizarFolgasNuvem==="function") sincronizarFolgasNuvem(); },60000);}catch(e){}
 renderMot();renderP();renderD();calc();
 
 // ── Descomprimir PERF embutido ──
@@ -1924,7 +1930,7 @@ renderMot();renderP();renderD();calc();
 <div id="relfolga-ov" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9999;align-items:flex-start;justify-content:center;padding:28px 12px;overflow:auto">
   <div style="background:#fff;border-radius:14px;max-width:920px;width:100%;padding:20px">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-      <b style="font-size:16px">Relatorio de Folgas <span style="font-size:11px;color:#1e9e5a;font-weight:700">[v7 · 04/09 13h]</span></b>
+      <b style="font-size:16px">Relatorio de Folgas <span style="font-size:11px;color:#1e9e5a;font-weight:700">[v8 · 04/09 15h]</span></b>
       <button onclick="fecharRelFolga()" style="border:none;background:#eef1f6;border-radius:8px;padding:6px 12px;cursor:pointer;font-weight:600">Fechar</button>
     </div>
     <div style="background:#f7f9fc;border:1px solid #e6e9f0;border-radius:10px;padding:12px 14px;margin-bottom:12px">
@@ -2043,6 +2049,6 @@ renderMot();renderP();renderD();calc();
   };
 })();
 </script>
-<div id="ver-badge" style="position:fixed;bottom:6px;right:8px;background:#1f2430;color:#fff;font-size:10px;padding:2px 8px;border-radius:10px;z-index:99998;opacity:.85">v7 · 04/09 13h</div>
+<div id="ver-badge" style="position:fixed;bottom:6px;right:8px;background:#1f2430;color:#fff;font-size:10px;padding:2px 8px;border-radius:10px;z-index:99998;opacity:.85">v8 · 04/09 15h</div>
 </body>
 </html>
