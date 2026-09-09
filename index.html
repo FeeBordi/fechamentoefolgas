@@ -1930,7 +1930,7 @@ renderMot();renderP();renderD();calc();
 <div id="relfolga-ov" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9999;align-items:flex-start;justify-content:center;padding:28px 12px;overflow:auto">
   <div style="background:#fff;border-radius:14px;max-width:920px;width:100%;padding:20px">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-      <b style="font-size:16px">Relatorio de Folgas <span style="font-size:11px;color:#1e9e5a;font-weight:700">[v8 · 04/09 15h]</span></b>
+      <b style="font-size:16px">Relatorio de Folgas <span style="font-size:11px;color:#1e9e5a;font-weight:700">[v9 · 09/09]</span></b>
       <button onclick="fecharRelFolga()" style="border:none;background:#eef1f6;border-radius:8px;padding:6px 12px;cursor:pointer;font-weight:600">Fechar</button>
     </div>
     <div style="background:#f7f9fc;border:1px solid #e6e9f0;border-radius:10px;padding:12px 14px;margin-bottom:12px">
@@ -1944,6 +1944,15 @@ renderMot();renderP();renderD();calc();
     <div style="display:flex;gap:8px;margin-bottom:12px">
       <div id="rf-tab-sem" class="rf-tab rf-on" onclick="rfView('sem')">Quadro da semana</div>
       <div id="rf-tab-lin" class="rf-tab" onclick="rfView('lin')">Linha do tempo</div>
+      <div id="rf-tab-mot" class="rf-tab" onclick="rfView('mot')">Por motorista (mês)</div>
+    </div>
+    <div id="rf-view-motorista" style="display:none">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap">
+        <input id="rf-mot-nome" list="rf-mot-lista" oninput="renderMotoristaMes()" placeholder="Motorista..." style="flex:1;min-width:180px;padding:8px 11px;border:1px solid #e2e6ee;border-radius:9px;font-size:14px">
+        <datalist id="rf-mot-lista"></datalist>
+        <input type="month" id="rf-mot-mes" onchange="renderMotoristaMes()" style="padding:8px 11px;border:1px solid #e2e6ee;border-radius:9px;font-size:14px">
+      </div>
+      <div id="rf-mot-result"></div>
     </div>
     <div id="rf-view-semana">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap">
@@ -2000,12 +2009,49 @@ renderMot();renderP();renderD();calc();
   var _semRef=null;
   function mondayOf(d){ var x=new Date(d); var wd=(x.getDay()+6)%7; x.setDate(x.getDate()-wd); x.setHours(0,0,0,0); return x; }
   function prim2(n){ return String(n).trim().split(/\s+/).slice(0,2).join(" "); }
+  window.renderMotoristaMes=function(){
+    var F=FD(); if(!F||!F.folgas) return;
+    // preenche a lista de motoristas (datalist) uma vez
+    var dl=document.getElementById("rf-mot-lista");
+    if(dl && !dl.dataset.pronto){ dl.innerHTML=Object.keys(F.folgas).sort().map(function(n){return "<option value=\""+n.replace(/"/g,"&quot;")+"\">";}).join(""); dl.dataset.pronto="1"; }
+    var mesInp=document.getElementById("rf-mot-mes");
+    var mes=(mesInp&&mesInp.value)?mesInp.value:((F.range&&F.range.last)?F.range.last.slice(0,7):"");
+    if(mesInp && !mesInp.value && mes) mesInp.value=mes;
+    var mot=(document.getElementById("rf-mot-nome")||{}).value||""; mot=mot.trim();
+    var out=document.getElementById("rf-mot-result");
+    if(!mot){ out.innerHTML="<p style=\"color:#999;font-size:13px\">Escolha um motorista.</p>"; return; }
+    var nomes=Object.keys(F.folgas);
+    var ml=mot.toLowerCase();
+    var alvo=nomes.find(function(n){return n.toLowerCase()===ml;}) || nomes.find(function(n){return n.toLowerCase().indexOf(ml)>=0;});
+    if(!alvo){ out.innerHTML="<p style=\"color:#c47f17;font-size:13px\">Motorista n\u00e3o encontrado nas folgas.</p>"; return; }
+    var dias=(F.folgas[alvo].days||[]).filter(function(d){return d.slice(0,7)===mes;}).sort();
+    var partes=mes.split("-"); var y=+partes[0], m=+partes[1];
+    var primeiro=new Date(y,m-1,1); var offset=(primeiro.getDay()+6)%7; var ndias=new Date(y,m,0).getDate();
+    var set={}; dias.forEach(function(d){ set[+d.slice(8,10)]=1; });
+    var MES=["","Janeiro","Fevereiro","Mar\u00e7o","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
+    var html="<div style=\"font-weight:700;font-size:14px;margin-bottom:2px\">"+alvo+"</div>";
+    html+="<div style=\"color:#67707f;font-size:13px;margin-bottom:12px\">"+dias.length+" dia(s) de folga em "+MES[m]+"/"+y+"</div>";
+    // calendário do mês
+    html+="<div style=\"display:grid;grid-template-columns:repeat(7,1fr);gap:4px;max-width:360px;margin-bottom:12px\">";
+    ["SEG","TER","QUA","QUI","SEX","S\u00c1B","DOM"].forEach(function(w){ html+="<div style=\"text-align:center;font-size:10.5px;color:#999;font-weight:700\">"+w+"</div>"; });
+    for(var i=0;i<offset;i++) html+="<div></div>";
+    for(var dnum=1;dnum<=ndias;dnum++){
+      var on=set[dnum];
+      html+="<div style=\"text-align:center;font-size:12px;padding:6px 0;border-radius:7px;"+(on?"background:#8fd3ab;color:#0a5a30;font-weight:700":"background:#f4f6f9;color:#9aa3b2")+"\">"+dnum+"</div>";
+    }
+    html+="</div>";
+    if(dias.length){ html+="<div style=\"font-size:12.5px;color:#555\">Datas: "+dias.map(function(d){return d.slice(8,10)+"/"+d.slice(5,7);}).join(" \u00b7 ")+"</div>"; }
+    out.innerHTML=html;
+  };
   window.rfView=function(v){
     document.getElementById("rf-view-semana").style.display=(v==="sem")?"block":"none";
     document.getElementById("rf-view-linha").style.display=(v==="lin")?"block":"none";
+    var vm=document.getElementById("rf-view-motorista"); if(vm) vm.style.display=(v==="mot")?"block":"none";
+    var tm=document.getElementById("rf-tab-mot"); if(tm) tm.className="rf-tab"+(v==="mot"?" rf-on":"");
     document.getElementById("rf-tab-sem").className="rf-tab"+(v==="sem"?" rf-on":"");
     document.getElementById("rf-tab-lin").className="rf-tab"+(v==="lin"?" rf-on":"");
     if(v==="sem") renderSemana();
+    else if(v==="mot") renderMotoristaMes();
     else renderRelFolga(document.getElementById("rf-busca")?document.getElementById("rf-busca").value:"");
   };
   window.mudarSemana=function(delta){ if(!_semRef) return; _semRef.setDate(_semRef.getDate()+delta*7); renderSemana(); };
@@ -2049,6 +2095,6 @@ renderMot();renderP();renderD();calc();
   };
 })();
 </script>
-<div id="ver-badge" style="position:fixed;bottom:6px;right:8px;background:#1f2430;color:#fff;font-size:10px;padding:2px 8px;border-radius:10px;z-index:99998;opacity:.85">v8 · 04/09 15h</div>
+<div id="ver-badge" style="position:fixed;bottom:6px;right:8px;background:#1f2430;color:#fff;font-size:10px;padding:2px 8px;border-radius:10px;z-index:99998;opacity:.85">v9 · 09/09</div>
 </body>
 </html>
