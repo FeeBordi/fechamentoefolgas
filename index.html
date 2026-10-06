@@ -1901,17 +1901,33 @@ renderMot();renderP();renderD();calc();
   function idb(cb){ var o=indexedDB.open('transccema_fs',1); o.onupgradeneeded=function(){o.result.createObjectStore('h');}; o.onsuccess=function(){cb(o.result);}; o.onerror=function(){cb(null);}; }
   function idbSet(k,v){ return new Promise(function(res){ idb(function(db){ if(!db){res();return;} var tx=db.transaction('h','readwrite'); tx.objectStore('h').put(v,k); tx.oncomplete=function(){res();}; }); }); }
   function idbGet(k){ return new Promise(function(res){ idb(function(db){ if(!db){res(null);return;} var tx=db.transaction('h','readonly'); var rq=tx.objectStore('h').get(k); rq.onsuccess=function(){res(rq.result);}; rq.onerror=function(){res(null);}; }); }); }
+  async function _abrirPickerNotas(){
+    var picked=await window.showOpenFilePicker({types:[{description:'CSV',accept:{'text/csv':['.csv'],'text/plain':['.txt']}}]});
+    var h=picked[0]; await idbSet('notas_handle',h); return h;
+  }
   window.conectarNotas = async function(){
-    if(window.showOpenFilePicker){
+    if(!window.showOpenFilePicker){ document.getElementById('fi-notas').click(); return; }
+    var h=null, txt=null, usouArquivoSalvo=false;
+    // 1) tenta usar o arquivo que ja estava conectado
+    try{
+      h=await idbGet('notas_handle');
+      if(h){
+        if(h.requestPermission){ var p=await h.requestPermission({mode:'read'}); if(p!=='granted') h=null; }
+        if(h){ var f=await h.getFile(); txt=await f.text(); usouArquivoSalvo=true; }
+      }
+    }catch(e){ h=null; txt=null; /* arquivo foi movido/renomeado ou sem permissao */ }
+    // 2) se nao tinha arquivo salvo OU ele falhou, abre o seletor de arquivo
+    if(txt==null){
+      try{ await idbSet('notas_handle', null); }catch(e){}
       try{
-        var h=await idbGet('notas_handle');
-        if(!h){ var picked=await window.showOpenFilePicker({types:[{description:'CSV',accept:{'text/csv':['.csv']}}]}); h=picked[0]; await idbSet('notas_handle',h); }
-        if(h.requestPermission){ var p=await h.requestPermission({mode:'read'}); if(p!=='granted'){ alert('Permiss\u00e3o negada para ler o arquivo.'); return; } }
-        var f=await h.getFile(); var txt=await f.text();
-        var n=window.carregarNotasTexto(txt);
-        alert(n<0?'Arquivo sem colunas envelope/nota.':'Notas atualizadas: '+n+' envelopes. Agora atualiza sozinho ao abrir.');
-      }catch(e){ /* cancelou */ }
-    } else { document.getElementById('fi-notas').click(); }
+        var hn=await _abrirPickerNotas();
+        var fn=await hn.getFile(); txt=await fn.text(); usouArquivoSalvo=false;
+      }catch(e){ return; /* usuario cancelou o seletor */ }
+    }
+    // 3) carrega
+    var n=window.carregarNotasTexto(txt);
+    if(n<0){ alert('Esse arquivo nao tem as colunas "envelope" e "nota". Selecione o notas_gobrax.csv gerado pelo robo.'); return; }
+    alert('Notas do Gobrax carregadas: '+n+' envelopes.'+(usouArquivoSalvo?'':' Agora atualiza sozinho ao abrir.'));
   };
   window.reconectarNotasArquivo = async function(){ try{ await idbSet('notas_handle', null); }catch(e){} if(window.showOpenFilePicker){ try{ var picked=await window.showOpenFilePicker({types:[{description:'CSV',accept:{'text/csv':['.csv']}}]}); var h=picked[0]; await idbSet('notas_handle',h); var f=await h.getFile(); var n=window.carregarNotasTexto(await f.text()); alert('Novo arquivo conectado: '+n+' envelopes.'); }catch(e){} } };
   async function autoLerConectado(){
@@ -1930,7 +1946,7 @@ renderMot();renderP();renderD();calc();
 <div id="relfolga-ov" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9999;align-items:flex-start;justify-content:center;padding:28px 12px;overflow:auto">
   <div style="background:#fff;border-radius:14px;max-width:920px;width:100%;padding:20px">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-      <b style="font-size:16px">Relatorio de Folgas <span style="font-size:11px;color:#1e9e5a;font-weight:700">[v10 · 10/09 (fretes)]</span></b>
+      <b style="font-size:16px">Relatorio de Folgas <span style="font-size:11px;color:#1e9e5a;font-weight:700">[v11 · 10/06 (notas)]</span></b>
       <button onclick="fecharRelFolga()" style="border:none;background:#eef1f6;border-radius:8px;padding:6px 12px;cursor:pointer;font-weight:600">Fechar</button>
     </div>
     <div style="background:#f7f9fc;border:1px solid #e6e9f0;border-radius:10px;padding:12px 14px;margin-bottom:12px">
@@ -2095,6 +2111,6 @@ renderMot();renderP();renderD();calc();
   };
 })();
 </script>
-<div id="ver-badge" style="position:fixed;bottom:6px;right:8px;background:#1f2430;color:#fff;font-size:10px;padding:2px 8px;border-radius:10px;z-index:99998;opacity:.85">v10 · 10/09 (fretes)</div>
+<div id="ver-badge" style="position:fixed;bottom:6px;right:8px;background:#1f2430;color:#fff;font-size:10px;padding:2px 8px;border-radius:10px;z-index:99998;opacity:.85">v11 · 10/06 (notas)</div>
 </body>
 </html>
