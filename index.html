@@ -276,10 +276,6 @@ body{background:var(--c1);font-family:'DM Sans',sans-serif;color:var(--t1);paddi
         <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
         WhatsApp
       </button>
-      <button class="tbtn" onclick="exportarEBaixar()" style="background:linear-gradient(135deg,#15803d,#16a34a);color:#fff;gap:6px">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="2" y="3" width="20" height="18" rx="2"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="14" y2="14"/></svg>
-        Pagamento
-      </button>
       <button class="tbtn btn-save" onclick="salvar()">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
         Salvar
@@ -353,7 +349,7 @@ body{background:var(--c1);font-family:'DM Sans',sans-serif;color:var(--t1);paddi
          ondrop="dropPerf(event)">
       <div class="ir-l">
         <div class="ir-ico p"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#b45309" stroke-width="2.2" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
-        <div><div class="ir-name">Performance</div><div class="ir-hint">PERFORMANCE_ATUAL.xlsx</div></div>
+        <div><div class="ir-name">Performance</div><div class="ir-hint">PERFORMANCE_ATUAL.xlsx + fretes</div></div>
       </div>
       <span class="ist ok" id="st-perf">357 motoristas</span>
     </label>
@@ -367,30 +363,8 @@ body{background:var(--c1);font-family:'DM Sans',sans-serif;color:var(--t1);paddi
       </div>
       <span class="ist ok" id="st-mot">132 motoristas</span>
     </label>
-    <label for="fi-frete" class="imp-row loaded" id="ir-frete"
-         ondragover="event.preventDefault();this.classList.add('drag')"
-         ondragleave="this.classList.remove('drag')"
-         ondrop="dropFrete(event)">
-      <div class="ir-l">
-        <div class="ir-ico f"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.2" stroke-linecap="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 4v4h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
-        <div><div class="ir-name">Tabela de fretes</div><div class="ir-hint">TABELAS_VIGENTES.xlsx</div></div>
-      </div>
-      <span class="ist ok" id="st-frete">15 clientes · 220 rotas</span>
-    </label>
-    <label for="fi-csv" class="imp-row" id="ir-csv"
-         ondragover="event.preventDefault();this.classList.add('drag')"
-         ondragleave="this.classList.remove('drag')"
-         ondrop="event.preventDefault();this.classList.remove('drag');lerCSVFile({target:{files:event.dataTransfer.files}})">
-      <div class="ir-l">
-        <div class="ir-ico" style="background:#dcfce7"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.2" stroke-linecap="round"><rect x="2" y="3" width="20" height="18" rx="2"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="14" y2="14"/></svg></div>
-        <div><div class="ir-name">Planilha de pagamentos</div><div class="ir-hint">PLANILHA_PAGAMENTOS.csv</div></div>
-      </div>
-      <span class="ist idle" id="st-csv">não carregada</span>
-    </label>
-    <input type="file" id="fi-csv"   accept=".csv,.txt" style="display:none" onchange="lerCSVFile(event)">
     <input type="file" id="fi-perf"  accept=".xlsx,.xls" style="display:none" onchange="lerPerfFile(event)">
     <input type="file" id="fi-mot"   accept=".xlsx,.xls" style="display:none" onchange="lerMotoristasFile(event)">
-    <input type="file" id="fi-frete" accept=".xlsx,.xls" style="display:none" onchange="lerFretesFile(event)">
   </div>
 </div>
 
@@ -615,15 +589,6 @@ body{background:var(--c1);font-family:'DM Sans',sans-serif;color:var(--t1);paddi
         <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
         Enviar no WhatsApp
       </button>
-      <button onclick="exportarEBaixar()" style="
-        width:100%;margin-top:8px;padding:13px;border-radius:10px;border:none;
-        cursor:pointer;font-size:14px;font-weight:700;font-family:inherit;
-        background:linear-gradient(135deg,#15803d 0%,#16a34a 100%);color:#fff;
-        display:flex;align-items:center;justify-content:center;gap:8px;
-        box-shadow:0 4px 12px rgba(22,163,74,.3);transition:all .15s">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="2" y="3" width="20" height="18" rx="2"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="14" y2="14"/></svg>
-        Exportar pagamento
-      </button>
     </div>
   </div>
 </div>
@@ -832,15 +797,71 @@ async function confirmarFolgaPaste(){
 
 // ═══ FIM INTEGRAÇÃO FOLGAS ═══
 
-let FRETES = [{"cliente":"BAUDUCCO","rota":"EXTREMA → SALVADOR / REGIÃO","frete_bruto":16893.7},{"cliente":"BAUDUCCO","rota":"EXTREMA → FEIRA DE SANTANA","frete_bruto":16131.31},{"cliente":"BAUDUCCO","rota":"EXTREMA → SUL DA BAHIA","frete_bruto":15901.97},{"cliente":"BAUDUCCO","rota":"EXTREMA → BAHIA / INTERIOR SUL","frete_bruto":15901.97},{"cliente":"BAUDUCCO","rota":"EXTREMA → STA MARIA DA VITORIA - BA","frete_bruto":15040.18},{"cliente":"BAUDUCCO","rota":"EXTREMA → ARACAJU","frete_bruto":19351.38},{"cliente":"BAUDUCCO","rota":"EXTREMA → SERGIPE / INTERIOR","frete_bruto":19129.09},{"cliente":"BAUDUCCO","rota":"EXTREMA → RECIFE / REGIÃO","frete_bruto":23368.47},{"cliente":"BAUDUCCO","rota":"EXTREMA → CARUARU - PE","frete_bruto":23368.47},{"cliente":"BAUDUCCO","rota":"EXTREMA → GARANHUNS - PE","frete_bruto":22050.73},{"cliente":"BAUDUCCO","rota":"EXTREMA → PERNAMBUCO / INTERIOR","frete_bruto":24155.03},{"cliente":"BAUDUCCO","rota":"EXTREMA → EXTREMO INTERIOR - PE","frete_bruto":24155.03},{"cliente":"BAUDUCCO","rota":"EXTREMA → MACEIO -AL","frete_bruto":20815.16},{"cliente":"BAUDUCCO","rota":"EXTREMA → ALAGOAS / INTERIOR","frete_bruto":21339.41},{"cliente":"BAUDUCCO","rota":"EXTREMA → PENEDO - AL","frete_bruto":19768.7},{"cliente":"BAUDUCCO","rota":"EXTREMA → JOAO PESSOA - PB","frete_bruto":24762.6},{"cliente":"BAUDUCCO","rota":"EXTREMA → CAMPINA GRANDE","frete_bruto":24597.32},{"cliente":"BAUDUCCO","rota":"EXTREMA → PARAIBA / INTERIOR","frete_bruto":25137.64},{"cliente":"BAUDUCCO","rota":"EXTREMA → FORTALEZA / REGIÃO","frete_bruto":27358.21},{"cliente":"BAUDUCCO","rota":"EXTREMA → CEARA / REGIÃO","frete_bruto":27390.13},{"cliente":"BAUDUCCO","rota":"EXTREMA → NATAL - RN","frete_bruto":26560.27},{"cliente":"BAUDUCCO","rota":"EXTREMA → RIO GRANDE DO NORTE / INTE","frete_bruto":27135.93},{"cliente":"BAUDUCCO","rota":"ITAPEVA → SALVADOR / REGIÃO","frete_bruto":16893.7},{"cliente":"BAUDUCCO","rota":"ITAPEVA → FEIRA DE SANTANA","frete_bruto":16131.31},{"cliente":"BAUDUCCO","rota":"ITAPEVA → SUL DA BAHIA","frete_bruto":15901.97},{"cliente":"BAUDUCCO","rota":"ITAPEVA → BAHIA / INTERIOR SUL","frete_bruto":15901.97},{"cliente":"BAUDUCCO","rota":"ITAPEVA → STA MARIA DA VITORIA - BA","frete_bruto":15040.18},{"cliente":"BAUDUCCO","rota":"ITAPEVA → ARACAJU","frete_bruto":19351.38},{"cliente":"BAUDUCCO","rota":"ITAPEVA → SERGIPE / INTERIOR","frete_bruto":19129.09},{"cliente":"BAUDUCCO","rota":"ITAPEVA → RECIFE / REGIÃO","frete_bruto":23368.47},{"cliente":"BAUDUCCO","rota":"ITAPEVA → CARUARU - PE","frete_bruto":23368.47},{"cliente":"BAUDUCCO","rota":"ITAPEVA → GARANHUNS - PE","frete_bruto":22050.73},{"cliente":"BAUDUCCO","rota":"ITAPEVA → PERNAMBUCO / INTERIOR","frete_bruto":24155.03},{"cliente":"BAUDUCCO","rota":"ITAPEVA → EXTREMO INTERIOR - PE","frete_bruto":24155.03},{"cliente":"BAUDUCCO","rota":"ITAPEVA → MACEIO -AL","frete_bruto":20815.16},{"cliente":"BAUDUCCO","rota":"ITAPEVA → ALAGOAS / INTERIOR","frete_bruto":21339.41},{"cliente":"BAUDUCCO","rota":"ITAPEVA → PENEDO - AL","frete_bruto":19768.7},{"cliente":"BAUDUCCO","rota":"ITAPEVA → JOAO PESSOA - PB","frete_bruto":24762.6},{"cliente":"BAUDUCCO","rota":"ITAPEVA → CAMPINA GRANDE","frete_bruto":24597.32},{"cliente":"BAUDUCCO","rota":"ITAPEVA → PARAIBA / INTERIOR","frete_bruto":25137.64},{"cliente":"BAUDUCCO","rota":"ITAPEVA → FORTALEZA / REGIÃO","frete_bruto":27358.21},{"cliente":"BAUDUCCO","rota":"ITAPEVA → CEARA / REGIÃO","frete_bruto":27390.13},{"cliente":"BAUDUCCO","rota":"ITAPEVA → NATAL - RN","frete_bruto":26560.27},{"cliente":"BAUDUCCO","rota":"ITAPEVA → RIO GRANDE DO NORTE / INTE","frete_bruto":27135.93},{"cliente":"BASF","rota":"CAMAÇARI → UBERABA","frete_bruto":12523.09},{"cliente":"BASF","rota":"CAMAÇARI → CURITIBA","frete_bruto":16436.54},{"cliente":"BASF","rota":"CAMAÇARI → PIRAÍ","frete_bruto":11482.64},{"cliente":"BASF","rota":"CAMAÇARI → JAGUARIUNA","frete_bruto":14241.52},{"cliente":"BASF","rota":"CAMAÇARI → CAPIVARI","frete_bruto":14516.74},{"cliente":"BASF","rota":"CAMAÇARI → CAIEIRAS, POÁ e GUARULHOS","frete_bruto":13576.97},{"cliente":"BASF","rota":"CAMAÇARI → JARINU e BRAGANCA PAULISTA","frete_bruto":13825.34},{"cliente":"BASF","rota":"CAMAÇARI → SUZANO","frete_bruto":15749.87},{"cliente":"BASF","rota":"POA → CAPIVARI","frete_bruto":2400},{"cliente":"BASF","rota":"CAMAÇARI → SIMOES FILHO","frete_bruto":1200},{"cliente":"BRIDGESTONE","rota":"CAMAÇARI → Maua","frete_bruto":15160.57},{"cliente":"BRIDGESTONE","rota":"CAMAÇARI → Osasco","frete_bruto":15360.28},{"cliente":"BRIDGESTONE","rota":"CAMAÇARI → São José dos Campos","frete_bruto":14317.33},{"cliente":"BRIDGESTONE","rota":"CAMAÇARI → DUQUE DE CAXIAS","frete_bruto":12623.46},{"cliente":"BRIDGESTONE","rota":"CAMAÇARI → ODAIR PNEUS","frete_bruto":16506.79},{"cliente":"BRIDGESTONE","rota":"CAMAÇARI → UBERLANDIA","frete_bruto":12771.4},{"cliente":"BRIDGESTONE","rota":"CAMAÇARI → CONTAGEM","frete_bruto":11047.94},{"cliente":"BRIDGESTONE","rota":"CAMAÇARI → TRÊS PONTAS","frete_bruto":13193.02},{"cliente":"BRIDGESTONE","rota":"CAMAÇARI → SERRA -ES","frete_bruto":9604},{"cliente":"BRIDGESTONE","rota":"CAMAÇARI → São Paulo","frete_bruto":10900},{"cliente":"BRIDGESTONE","rota":"CAMAÇARI → CARPINA-PE","frete_bruto":8306.23},{"cliente":"BRIDGESTONE","rota":"CAMAÇARI → DIST. AVANTE","frete_bruto":1819.65},{"cliente":"BRIDGESTONE","rota":"CAMAÇARI → RECIFE","frete_bruto":7988.33},{"cliente":"BRIDGESTONE","rota":"CAMPINAS → CARPINA","frete_bruto":24963.12},{"cliente":"BRIDGESTONE","rota":"Mauá → Camaçari","frete_bruto":15160.57},{"cliente":"BRIDGESTONE","rota":"Mauá → RIO DE JANEIRO - RJ","frete_bruto":6750},{"cliente":"BRIDGESTONE","rota":"Mauá → CURITIBA-PR","frete_bruto":4550},{"cliente":"BRIDGESTONE","rota":"Mauá → SERRA -ES","frete_bruto":7356.94},{"cliente":"BRIDGESTONE","rota":"SERRA → RIO DE JANEIRO - RJ","frete_bruto":4914},{"cliente":"BRIDGESTONE","rota":"SERRA → SÃO PAULO-SP","frete_bruto":7416.11},{"cliente":"BRIDGESTONE","rota":"SERRA → CURITIBA-PR","frete_bruto":10327.5},{"cliente":"BRIDGESTONE","rota":"CAMAÇARI → LAGOA DA PRATA","frete_bruto":10135.65},{"cliente":"BRIDGESTONE","rota":"CAMAÇARI → SALVADOR","frete_bruto":1819.65},{"cliente":"BRIDGESTONE","rota":"CAMAÇARI → MARILIA","frete_bruto":16506.79},{"cliente":"CANTU","rota":"ITAJAÍ → MACEIO","frete_bruto":21414.35},{"cliente":"CANTU","rota":"ITAJAÍ → FEIRA DE SANTANA","frete_bruto":20049.35},{"cliente":"CANTU","rota":"ITAJAÍ → LAURO DE FREITAS","frete_bruto":20009.84},{"cliente":"CANTU","rota":"ITAJAÍ → LUIS EDUARDO MAGALHAES","frete_bruto":19408.74},{"cliente":"CANTU","rota":"ITAJAÍ → SALVADOR","frete_bruto":20009.84},{"cliente":"CANTU","rota":"ITAJAÍ → SIMOES FILHO","frete_bruto":20009.84},{"cliente":"CANTU","rota":"ITAJAÍ → VITORIA DA CONQUISTA","frete_bruto":19425},{"cliente":"CANTU","rota":"ITAJAÍ → CRATO","frete_bruto":27924.35},{"cliente":"CANTU","rota":"ITAJAÍ → FORTALEZA","frete_bruto":27399.35},{"cliente":"CANTU","rota":"ITAJAÍ → MARACANAU","frete_bruto":27399.35},{"cliente":"CANTU","rota":"ITAJAÍ → JOAO PESSOA","frete_bruto":26349.35},{"cliente":"CANTU","rota":"ITAJAÍ → JABOATAO DOS GUARARAPES","frete_bruto":26139.35},{"cliente":"CANTU","rota":"ITAJAÍ → PETROLINA","frete_bruto":25299.35},{"cliente":"CANTU","rota":"ITAJAÍ → RECIFE","frete_bruto":26139.35},{"cliente":"CANTU","rota":"ITAJAÍ → BARRA MANSA","frete_bruto":12083.11},{"cliente":"CANTU","rota":"ITAJAÍ → CAMPOS DOS GOYTACAZES","frete_bruto":12323.66},{"cliente":"CANTU","rota":"ITAJAÍ → DUQUE DE CAXIAS","frete_bruto":11965.7},{"cliente":"CANTU","rota":"ITAJAÍ → RIO DE JANEIRO","frete_bruto":12188.95},{"cliente":"CANTU","rota":"ITAJAÍ → ARACAJU","frete_bruto":21099.35},{"cliente":"CANTU","rota":"ITAJAÍ → PRESIDENTE PRUDENTE","frete_bruto":7903.23},{"cliente":"CANTU","rota":"ITAJAÍ → BARUERI","frete_bruto":5516.08},{"cliente":"CANTU","rota":"ITAJAÍ → BAURU","frete_bruto":7934.66},{"cliente":"CANTU","rota":"ITAJAÍ → CAMPINAS","frete_bruto":5965.91},{"cliente":"CANTU","rota":"ITAJAÍ → ITUPEVA","frete_bruto":5965.91},{"cliente":"CANTU","rota":"ITAJAÍ → JACAREI","frete_bruto":5965.91},{"cliente":"CANTU","rota":"ITAJAÍ → MOOCA","frete_bruto":5516.08},{"cliente":"CANTU","rota":"ITAJAÍ → RIBEIRAO PRETO","frete_bruto":7830.97},{"cliente":"CANTU","rota":"ITAJAÍ → SANTOS","frete_bruto":5965.91},{"cliente":"CANTU","rota":"ITAJAÍ → SAO JOSE DO RIO PRETO","frete_bruto":8524.81},{"cliente":"ENGEPACK","rota":"SIMOESFILHO → COTIA - SP","frete_bruto":15513.88},{"cliente":"FITESA","rota":"JACAREÍ → BRAGANCA","frete_bruto":1956.77},{"cliente":"FITESA","rota":"JACAREÍ → CABREUVA","frete_bruto":2410.92},{"cliente":"FITESA","rota":"JACAREÍ → CAIEIRAS","frete_bruto":1906.31},{"cliente":"FITESA","rota":"JACAREÍ → CAJAMAR","frete_bruto":2130.58},{"cliente":"FITESA","rota":"JACAREÍ → CAMACARI","frete_bruto":16545.67},{"cliente":"FITESA","rota":"JACAREÍ → CAPIVARI","frete_bruto":3043.37},{"cliente":"FITESA","rota":"JACAREÍ → COSMOPOLIS","frete_bruto":2635.2},{"cliente":"FITESA","rota":"JACAREÍ → CURITIBA","frete_bruto":4092.96},{"cliente":"FITESA","rota":"JACAREÍ → FLORIANOPOLIS","frete_bruto":5550.73},{"cliente":"FITESA","rota":"JACAREÍ → GUARULHOS","frete_bruto":2130.58},{"cliente":"FITESA","rota":"JACAREÍ → ITUPEVA","frete_bruto":2298.79},{"cliente":"FITESA","rota":"JACAREÍ → OSASCO","frete_bruto":2130.58},{"cliente":"FITESA","rota":"JACAREÍ → PIRAI","frete_bruto":3835.05},{"cliente":"FITESA","rota":"JACAREÍ → POA","frete_bruto":1962.38},{"cliente":"FITESA","rota":"JACAREÍ → RECIFE","frete_bruto":24445.65},{"cliente":"FITESA","rota":"JACAREÍ → SUZANO","frete_bruto":2018.45},{"cliente":"FITESA","rota":"JACAREÍ → VALINHOS","frete_bruto":2130.58},{"cliente":"FITESA","rota":"JACAREÍ → VINHEDO","frete_bruto":2276.37},{"cliente":"GOODYEAR","rota":"AMERICANA → JABOATÃO","frete_bruto":22254.69},{"cliente":"GOODYEAR","rota":"PAULINIA → JABOATÃO","frete_bruto":22422.14},{"cliente":"GOODYEAR","rota":"PAULINIA → MURIBECA","frete_bruto":23543.25},{"cliente":"GOODYEAR","rota":"AMERICANA → GOIANA","frete_bruto":23046.24},{"cliente":"GOODYEAR","rota":"Jaboatão → Conde","frete_bruto":2093.8},{"cliente":"GOODYEAR","rota":"Jaboatão → Alhandra","frete_bruto":1847.47},{"cliente":"KIMBERLY","rota":"CAMAÇARI → CDMA","frete_bruto":14797.68},{"cliente":"KIMBERLY","rota":"CAMAÇARI → CDMA - MP","frete_bruto":17807.52},{"cliente":"KIMBERLY","rota":"CAMAÇARI → JABOATÃO","frete_bruto":8648.18},{"cliente":"KIMBERLY","rota":"CAMAÇARI → SÃO JOÃO DA BOA VISTA -SP","frete_bruto":17721.2},{"cliente":"KIMBERLY","rota":"CAMAÇARI → SUZANO","frete_bruto":15749.87},{"cliente":"KIMBERLY","rota":"CAMAÇARI → KIMBERLY - CAMAÇARI","frete_bruto":1725.83},{"cliente":"KIMBERLY","rota":"MOGI → CAMAÇARI","frete_bruto":15800.22},{"cliente":"KIMBERLY","rota":"MOGI → JABOATÃO","frete_bruto":25153.05},{"cliente":"KIMBERLY","rota":"MOGI → FORTALEZA","frete_bruto":28814.95},{"cliente":"KIMBERLY","rota":"BARUERI → CAMAÇARI","frete_bruto":17715.41},{"cliente":"KIMBERLY","rota":"JACAREI → CAMAÇARI","frete_bruto":16815.77},{"cliente":"KIMBERLY","rota":"MOGI ( MATÉRIA PRIMA) → CAMAÇARI","frete_bruto":17807.52},{"cliente":"LIQUID BRANDS","rota":"BARUERI → CAJAMAR","frete_bruto":1590},{"cliente":"LIQUID BRANDS","rota":"BARUERI → BAHIA","frete_bruto":16976},{"cliente":"LIQUID BRANDS","rota":"BARUERI → PERNAMBUCO","frete_bruto":25299.83},{"cliente":"LIQUID BRANDS","rota":"BARUERI → BONOCÔ","frete_bruto":17119},{"cliente":"LIQUID BRANDS","rota":"BARUERI → LAURO DE FREITAS","frete_bruto":17138.08},{"cliente":"LIQUID BRANDS","rota":"BARUERI → ARACAJÚ","frete_bruto":19366.2},{"cliente":"LIQUID BRANDS","rota":"BARUERI → MACEIÓ","frete_bruto":20869.28},{"cliente":"LIQUID BRANDS","rota":"BARUERI → FORTALEZA","frete_bruto":25499.36},{"cliente":"LIQUID BRANDS","rota":"BARUERI → NATAL","frete_bruto":25938.2},{"cliente":"LIQUID BRANDS","rota":"BARUERI → BESSA -PB","frete_bruto":23760.96},{"cliente":"LIQUID BRANDS","rota":"BARUERI → FLORIANÓPOLIS","frete_bruto":12582.2},{"cliente":"LIQUID BRANDS","rota":"BARUERI → BLUMENAÚ","frete_bruto":12370.2},{"cliente":"LIQUID BRANDS","rota":"BARUERI → JOINVILLE","frete_bruto":12158.2},{"cliente":"LIQUID BRANDS","rota":"BARUERI → FEIRA DE SANTANA","frete_bruto":16027.2},{"cliente":"LIQUID BRANDS","rota":"BARUERI → WASHINGTON SOARES","frete_bruto":26415.2},{"cliente":"LIQUID BRANDS","rota":"BARUERI → FAROL MACEIO","frete_bruto":21009.2},{"cliente":"M. DIAS","rota":"JABOATÃO → SALVADOR","frete_bruto":8224.9},{"cliente":"M. DIAS","rota":"JABOATÃO → FEIRA DE SANTANA","frete_bruto":8097.2},{"cliente":"M. DIAS","rota":"JABOATÃO → NOSSA SENHORA SOCORRO","frete_bruto":6975.21},{"cliente":"M. DIAS","rota":"JABOATÃO → SIMÕES FILHO","frete_bruto":7866.5},{"cliente":"M. DIAS","rota":"PAULISTA → SIMÕES FILHO","frete_bruto":5619.38},{"cliente":"M. DIAS","rota":"CAMAÇARI → GUARULHOS","frete_bruto":15123.68},{"cliente":"M. DIAS","rota":"CAMAÇARI → PAULISTA","frete_bruto":8364.46},{"cliente":"M. DIAS","rota":"CAMAÇARI → JABOATÃO","frete_bruto":8364.46},{"cliente":"M. DIAS","rota":"CAMAÇARI → BAYEUX","frete_bruto":8795.96},{"cliente":"M. DIAS","rota":"CAMAÇARI → SÃO JOSÉ","frete_bruto":17639.13},{"cliente":"M. DIAS","rota":"CAMAÇARI → SÃO JOSÉ DE MIPIBU","frete_bruto":9812.3},{"cliente":"M. DIAS","rota":"CAMAÇARI → RIO DE JANEIRO","frete_bruto":12119.72},{"cliente":"M. DIAS","rota":"CAMAÇARI → NOSSA SENHORA SOCORRO","frete_bruto":4721},{"cliente":"M. DIAS","rota":"CAMAÇARI → CAÇAPAVA","frete_bruto":12585.2},{"cliente":"M. DIAS","rota":"CAMAÇARI → MAUÁ","frete_bruto":12766.62},{"cliente":"M. DIAS","rota":"CAMAÇARI → JUNQUIROPOLIS","frete_bruto":15829.7},{"cliente":"M. DIAS","rota":"CAMAÇARI → RIBEIRÃO PRETO","frete_bruto":12972.5},{"cliente":"M. DIAS","rota":"CAMAÇARI → SÃO CAETANO DO SUL","frete_bruto":12708.1},{"cliente":"M. DIAS","rota":"CAMAÇARI → JACAREÍ","frete_bruto":12695.2},{"cliente":"M. DIAS","rota":"SIMÕES FILHO → PAULISTA","frete_bruto":7645.1},{"cliente":"M. DIAS","rota":"SIMÕES FILHO → BAYEUX","frete_bruto":8054.6},{"cliente":"M. DIAS","rota":"FORTALEZA → SALVADOR","frete_bruto":10153.39},{"cliente":"M. DIAS","rota":"FORTALEZA → JABOATÃO","frete_bruto":5499},{"cliente":"M. DIAS","rota":"CAMAÇARI → PINHAIS","frete_bruto":20545.45},{"cliente":"M. DIAS","rota":"CAMAÇARI → VITORIA DA CONQUISTA","frete_bruto":6431.82},{"cliente":"M. DIAS","rota":"CAMAÇARI → MACEIO","frete_bruto":6400},{"cliente":"M. DIAS","rota":"JABOATÃO → RIO DE JANEIRO","frete_bruto":17697.66},{"cliente":"NOVA PAGINA","rota":"CAJAMAR → CAMAÇARI","frete_bruto":16956.49},{"cliente":"NOVA PAGINA","rota":"CAJAMAR → SÃO JOSÉ DOS PINHAIS-PR","frete_bruto":3905},{"cliente":"NOVA PAGINA","rota":"CAJAMAR → JANDIRA-SP","frete_bruto":1772.81},{"cliente":"NOVA PAGINA","rota":"CAJAMAR → EXTREMA-MG","frete_bruto":2118.98},{"cliente":"NOVA PAGINA","rota":"VARGINHA → CAMAÇARI","frete_bruto":19760.8},{"cliente":"NOVA PAGINA","rota":"CAMAÇARI → SIMÕES FILHO","frete_bruto":1564.55},{"cliente":"PORTALPLAST","rota":"DIADEMA → BOM CONSELHO-PE","frete_bruto":21957},{"cliente":"PORTALPLAST","rota":"DIADEMA → GARANHUNS-PE","frete_bruto":22868},{"cliente":"PORTALPLAST","rota":"DIADEMA → CARAMBEI-PR","frete_bruto":5505},{"cliente":"SANTA EDWIRGES","rota":"Salvador / Região","frete_bruto":17197.25},{"cliente":"SANTA EDWIRGES","rota":"Feira de Santana","frete_bruto":16220.75},{"cliente":"SANTA EDWIRGES","rota":"Aracaju","frete_bruto":18803.05},{"cliente":"SANTA EDWIRGES","rota":"Nsa Senhora Socorro","frete_bruto":18857.3},{"cliente":"SANTA EDWIRGES","rota":"Maceió","frete_bruto":20864.55},{"cliente":"SANTA EDWIRGES","rota":"Arapiraca","frete_bruto":20115.9},{"cliente":"SANTA EDWIRGES","rota":"Recife / Região","frete_bruto":23056.25},{"cliente":"SANTA EDWIRGES","rota":"João Pessoa / Região","frete_bruto":24466.75},{"cliente":"SANTA EDWIRGES","rota":"Natal","frete_bruto":26582.5},{"cliente":"SANTA EDWIRGES","rota":"Mossoró","frete_bruto":24694.6},{"cliente":"SANTA EDWIRGES","rota":"Caruaru","frete_bruto":23496.76},{"cliente":"SELMI","rota":"SUMARE → ARACAJU","frete_bruto":18738.08},{"cliente":"SELMI","rota":"SUMARE → CAMPINA GRANDE","frete_bruto":26215},{"cliente":"SELMI","rota":"SUMARE → FEIRA DE SANTANA","frete_bruto":18404},{"cliente":"SELMI","rota":"SUMARE → IRECE","frete_bruto":19902},{"cliente":"SELMI","rota":"SUMARE → ITABAIANA","frete_bruto":20865},{"cliente":"SELMI","rota":"SUMARE → JEQUIE","frete_bruto":15515},{"cliente":"SELMI","rota":"SUMARE → LIMOEIRO DE ANADIA","frete_bruto":23005},{"cliente":"SELMI","rota":"SUMARE → NOSSA SENHORA DO SOCORRO","frete_bruto":19843.15},{"cliente":"SELMI","rota":"SUMARE → SANTA MARIA DA VITORIA","frete_bruto":17398.2},{"cliente":"SELMI","rota":"SUMARE → JABOATÃO DOS GUARARAPES","frete_bruto":23567},{"cliente":"SELMI","rota":"SUMARE → RECIFE","frete_bruto":23555},{"cliente":"SUZANO","rota":"ARUJÁ → SIMÕES FILHO","frete_bruto":19000},{"cliente":"SUZANO","rota":"ARUJÁ → CABO DE ST. AGOSTINHO","frete_bruto":20500},{"cliente":"SUZANO","rota":"ARUJÁ → FORTALEZA","frete_bruto":24000}];
+// Tabela de frete — vem da aba TABELA FRETE da planilha de Performance.
+// Formato de cada linha: [cliente, origem, destino, valor, vigência (aaaa-mm-dd), tabela original]
+const FRETES_BASE = [["BASF","CAMAÇARI","CAIEIRAS, POÁ E GUARULHOS",13576.97,"2026-04-01","BASF 2026"],["BASF","CAMAÇARI","CAPIVARI",14516.74,"2026-04-01","BASF 2026"],["BASF","CAMAÇARI","CURITIBA",16436.54,"2026-04-01","BASF 2026"],["BASF","CAMAÇARI","JAGUARIUNA",14241.52,"2026-04-01","BASF 2026"],["BASF","CAMAÇARI","JARINU E BRAGANCA PAULISTA",13825.34,"2026-04-01","BASF 2026"],["BASF","CAMAÇARI","PIRAÍ",11482.64,"2026-04-01","BASF 2026"],["BASF","CAMAÇARI","SENADOR CANEDO",12180.75,"2026-04-01","BASF 2026"],["BASF","CAMAÇARI","SIMOES FILHO",1200.0,"2026-04-01","BASF 2026"],["BASF","CAMAÇARI","SUZANO",15749.87,"2026-04-01","BASF 2026"],["BASF","CAMAÇARI","UBERABA",12523.09,"2026-04-01","BASF 2026"],["BASF","POA","CAPIVARI",2400.0,"2026-04-01","BASF 2026"],["BAUDUCCO","EXTREMA","ALAGOAS / INTERIOR",21339.41,"2026-03-23","BAUDUCCO"],["BAUDUCCO","EXTREMA","ARACAJU",19351.38,"2026-03-23","BAUDUCCO"],["BAUDUCCO","EXTREMA","BAHIA / INTERIOR SUL",15901.97,"2026-03-23","BAUDUCCO"],["BAUDUCCO","EXTREMA","CAMPINA GRANDE",24597.32,"2026-03-23","BAUDUCCO"],["BAUDUCCO","EXTREMA","CARUARU - PE",23368.47,"2026-03-23","BAUDUCCO"],["BAUDUCCO","EXTREMA","CEARA / REGIÃO",27390.13,"2026-03-23","BAUDUCCO"],["BAUDUCCO","EXTREMA","EXTREMO INTERIOR - PE",24155.03,"2026-03-23","BAUDUCCO"],["BAUDUCCO","EXTREMA","FEIRA DE SANTANA",16131.31,"2026-03-23","BAUDUCCO"],["BAUDUCCO","EXTREMA","FORTALEZA / REGIÃO",27358.21,"2026-03-23","BAUDUCCO"],["BAUDUCCO","EXTREMA","GARANHUNS - PE",22050.73,"2026-03-23","BAUDUCCO"],["BAUDUCCO","EXTREMA","JOAO PESSOA - PB",24762.6,"2026-03-23","BAUDUCCO"],["BAUDUCCO","EXTREMA","MACEIO -AL",20815.16,"2026-03-23","BAUDUCCO"],["BAUDUCCO","EXTREMA","NATAL - RN",26560.27,"2026-03-23","BAUDUCCO"],["BAUDUCCO","EXTREMA","PARAIBA / INTERIOR",25137.64,"2026-03-23","BAUDUCCO"],["BAUDUCCO","EXTREMA","PENEDO - AL",19768.7,"2026-03-23","BAUDUCCO"],["BAUDUCCO","EXTREMA","PERNAMBUCO / INTERIOR",24155.03,"2026-03-23","BAUDUCCO"],["BAUDUCCO","EXTREMA","RECIFE / REGIÃO",23368.47,"2026-03-23","BAUDUCCO"],["BAUDUCCO","EXTREMA","RIO GRANDE DO NORTE / INTE",27135.93,"2026-03-23","BAUDUCCO"],["BAUDUCCO","EXTREMA","SALVADOR / REGIÃO",16893.7,"2026-03-23","BAUDUCCO"],["BAUDUCCO","EXTREMA","SERGIPE / INTERIOR",19129.09,"2026-03-23","BAUDUCCO"],["BAUDUCCO","EXTREMA","STA MARIA DA VITORIA - BA",15040.18,"2026-03-23","BAUDUCCO"],["BAUDUCCO","EXTREMA","SUL DA BAHIA",15901.97,"2026-03-23","BAUDUCCO"],["BAUDUCCO","ITAPEVA","ALAGOAS / INTERIOR",21339.41,"2026-03-23","BAUDUCCO"],["BAUDUCCO","ITAPEVA","ARACAJU",19351.38,"2026-03-23","BAUDUCCO"],["BAUDUCCO","ITAPEVA","BAHIA / INTERIOR SUL",15901.97,"2026-03-23","BAUDUCCO"],["BAUDUCCO","ITAPEVA","CAMPINA GRANDE",24597.32,"2026-03-23","BAUDUCCO"],["BAUDUCCO","ITAPEVA","CARUARU - PE",23368.47,"2026-03-23","BAUDUCCO"],["BAUDUCCO","ITAPEVA","CEARA / REGIÃO",27390.13,"2026-03-23","BAUDUCCO"],["BAUDUCCO","ITAPEVA","EXTREMO INTERIOR - PE",24155.03,"2026-03-23","BAUDUCCO"],["BAUDUCCO","ITAPEVA","FEIRA DE SANTANA",16131.31,"2026-03-23","BAUDUCCO"],["BAUDUCCO","ITAPEVA","FORTALEZA / REGIÃO",27358.21,"2026-03-23","BAUDUCCO"],["BAUDUCCO","ITAPEVA","GARANHUNS - PE",22050.73,"2026-03-23","BAUDUCCO"],["BAUDUCCO","ITAPEVA","JOAO PESSOA - PB",24762.6,"2026-03-23","BAUDUCCO"],["BAUDUCCO","ITAPEVA","MACEIO -AL",20815.16,"2026-03-23","BAUDUCCO"],["BAUDUCCO","ITAPEVA","NATAL - RN",26560.27,"2026-03-23","BAUDUCCO"],["BAUDUCCO","ITAPEVA","PARAIBA / INTERIOR",25137.64,"2026-03-23","BAUDUCCO"],["BAUDUCCO","ITAPEVA","PENEDO - AL",19768.7,"2026-03-23","BAUDUCCO"],["BAUDUCCO","ITAPEVA","PERNAMBUCO / INTERIOR",24155.03,"2026-03-23","BAUDUCCO"],["BAUDUCCO","ITAPEVA","RECIFE / REGIÃO",23368.47,"2026-03-23","BAUDUCCO"],["BAUDUCCO","ITAPEVA","RIO GRANDE DO NORTE / INTE",27135.93,"2026-03-23","BAUDUCCO"],["BAUDUCCO","ITAPEVA","SALVADOR / REGIÃO",16893.7,"2026-03-23","BAUDUCCO"],["BAUDUCCO","ITAPEVA","SERGIPE / INTERIOR",19129.09,"2026-03-23","BAUDUCCO"],["BAUDUCCO","ITAPEVA","STA MARIA DA VITORIA - BA",15040.18,"2026-03-23","BAUDUCCO"],["BAUDUCCO","ITAPEVA","SUL DA BAHIA",15901.97,"2026-03-23","BAUDUCCO"],["BRIDGESTONE","CAMAÇARI","CARPINA-PE",8306.23,"2026-01-01","BRIDGESTONE 2026"],["BRIDGESTONE","CAMAÇARI","CONTAGEM",11047.94,"2026-01-01","BRIDGESTONE 2026"],["BRIDGESTONE","CAMAÇARI","DIST. AVANTE",1819.65,"2026-01-01","BRIDGESTONE 2026"],["BRIDGESTONE","CAMAÇARI","DUQUE DE CAXIAS",12623.46,"2026-01-01","BRIDGESTONE 2026"],["BRIDGESTONE","CAMAÇARI","LAGOA DA PRATA",10135.65,"2026-01-01","BRIDGESTONE 2026"],["BRIDGESTONE","CAMAÇARI","MARILIA",16506.79,"2026-01-01","BRIDGESTONE 2026"],["BRIDGESTONE","CAMAÇARI","MAUÁ",15160.57,"2026-01-01","BRIDGESTONE 2026"],["BRIDGESTONE","CAMAÇARI","ODAIR PNEUS",16506.79,"2026-01-01","BRIDGESTONE 2026"],["BRIDGESTONE","CAMAÇARI","OSASCO",15360.28,"2026-01-01","BRIDGESTONE 2026"],["BRIDGESTONE","CAMAÇARI","RECIFE",7988.33,"2026-01-01","BRIDGESTONE 2026"],["BRIDGESTONE","CAMAÇARI","SALVADOR",1819.65,"2026-01-01","BRIDGESTONE 2026"],["BRIDGESTONE","CAMAÇARI","SERRA -ES",9604.0,"2026-01-01","BRIDGESTONE 2026"],["BRIDGESTONE","CAMAÇARI","SÃO JOSÉ DOS CAMPOS",14317.33,"2026-01-01","BRIDGESTONE 2026"],["BRIDGESTONE","CAMAÇARI","SÃO PAULO",10900.0,"2026-01-01","BRIDGESTONE 2026"],["BRIDGESTONE","CAMAÇARI","TRÊS PONTAS",13193.02,"2026-01-01","BRIDGESTONE 2026"],["BRIDGESTONE","CAMAÇARI","UBERLANDIA",12771.4,"2026-01-01","BRIDGESTONE 2026"],["BRIDGESTONE","CAMPINAS","CARPINA",24963.12,"2026-01-01","BRIDGESTONE 2026"],["BRIDGESTONE","MAUÁ","CAMAÇARI",15160.57,"2026-01-01","BRIDGESTONE 2026"],["BRIDGESTONE","MAUÁ","CURITIBA-PR",4550.0,"2026-01-01","BRIDGESTONE 2026"],["BRIDGESTONE","MAUÁ","RIO DE JANEIRO - RJ",6750.0,"2026-01-01","BRIDGESTONE 2026"],["BRIDGESTONE","MAUÁ","SERRA -ES",7356.94,"2026-01-01","BRIDGESTONE 2026"],["BRIDGESTONE","SERRA","CURITIBA-PR",10327.5,"2026-01-01","BRIDGESTONE 2026"],["BRIDGESTONE","SERRA","RIO DE JANEIRO - RJ",4914.0,"2026-01-01","BRIDGESTONE 2026"],["BRIDGESTONE","SERRA","SÃO PAULO-SP",7416.11,"2026-01-01","BRIDGESTONE 2026"],["BRIDGESTONE","CAMAÇARI","BETIM",10818.64,"","BRIDGESTONE (2) - Escopo/Volumetria"],["BRIDGESTONE","CAMAÇARI","CONTAGEM",11047.94,"","BRIDGESTONE (2) - Escopo/Volumetria"],["BRIDGESTONE","CAMAÇARI","DUQUE DE CAXIAS",12623.46,"","BRIDGESTONE (2) - Escopo/Volumetria"],["BRIDGESTONE","CAMAÇARI","GOIANA",7667.6,"","BRIDGESTONE (2) - Escopo/Volumetria"],["BRIDGESTONE","CAMAÇARI","INDAIATUBA",15759.71,"","BRIDGESTONE (2) - Escopo/Volumetria"],["BRIDGESTONE","CAMAÇARI","MARILIA",13780.46,"","BRIDGESTONE (2) - Escopo/Volumetria"],["BRIDGESTONE","CAMAÇARI","MAUÁ",15160.57,"","BRIDGESTONE (2) - Escopo/Volumetria"],["BRIDGESTONE","CAMAÇARI","OSASCO",15182.8,"","BRIDGESTONE (2) - Escopo/Volumetria"],["BRIDGESTONE","CAMAÇARI","REZENDE",13126.44,"","BRIDGESTONE (2) - Escopo/Volumetria"],["BRIDGESTONE","CAMAÇARI","SERRA",10759.47,"","BRIDGESTONE (2) - Escopo/Volumetria"],["BRIDGESTONE","CAMAÇARI","SOROCABA",15376.81,"","BRIDGESTONE (2) - Escopo/Volumetria"],["BRIDGESTONE","CAMAÇARI","SÃO CAETANO",15404.66,"","BRIDGESTONE (2) - Escopo/Volumetria"],["BRIDGESTONE","CAMAÇARI","SÃO JOSE DOS PINHAIS",18237.64,"","BRIDGESTONE (2) - Escopo/Volumetria"],["BRIDGESTONE","CAMAÇARI","SÃO JOSÉ DOS CAMPOS",14317.33,"","BRIDGESTONE (2) - Escopo/Volumetria"],["BRIDGESTONE","CAMAÇARI","TRÊS PONTAS",13193.02,"","BRIDGESTONE (2) - Escopo/Volumetria"],["BRIDGESTONE","CAMAÇARI","UBERLANDIA",12771.4,"","BRIDGESTONE (2) - Escopo/Volumetria"],["BRIDGESTONE","MAUÁ","CAMAÇARI",15160.57,"","BRIDGESTONE (2) - Escopo/Volumetria"],["BRIDGESTONE","SANTO ANDRE","SERRA",7356.94,"","BRIDGESTONE (2) - Escopo/Volumetria"],["BRIDGESTONE","SERRA","SÃO PAULO",7415.98,"","BRIDGESTONE (2) - Escopo/Volumetria"],["BRIDGESTONE","SÃO PAULO","CAXIAS DO SUL",9420.65,"","BRIDGESTONE (2) - Escopo/Volumetria"],["BRIDGESTONE","SÃO PAULO","CHAPECO",7519.67,"","BRIDGESTONE (2) - Escopo/Volumetria"],["BRIDGESTONE","SÃO PAULO","IÇARA",7356.94,"","BRIDGESTONE (2) - Escopo/Volumetria"],["CANTU","ITAJAÍ","ARACAJU",21099.35,"2026-01-01","CANTU 2026"],["CANTU","ITAJAÍ","BARRA MANSA",12083.11,"2026-01-01","CANTU 2026"],["CANTU","ITAJAÍ","BARUERI",5516.08,"2026-01-01","CANTU 2026"],["CANTU","ITAJAÍ","BAURU",7934.66,"2026-01-01","CANTU 2026"],["CANTU","ITAJAÍ","CAMPINAS",5965.91,"2026-01-01","CANTU 2026"],["CANTU","ITAJAÍ","CAMPOS DOS GOYTACAZES",12323.66,"2026-01-01","CANTU 2026"],["CANTU","ITAJAÍ","CRATO",27924.35,"2026-01-01","CANTU 2026"],["CANTU","ITAJAÍ","DUQUE DE CAXIAS",11965.7,"2026-01-01","CANTU 2026"],["CANTU","ITAJAÍ","FEIRA DE SANTANA",20049.35,"2026-01-01","CANTU 2026"],["CANTU","ITAJAÍ","FORTALEZA",27399.35,"2026-01-01","CANTU 2026"],["CANTU","ITAJAÍ","ITUPEVA",5965.91,"2026-01-01","CANTU 2026"],["CANTU","ITAJAÍ","JABOATAO DOS GUARARAPES",26139.35,"2026-01-01","CANTU 2026"],["CANTU","ITAJAÍ","JACAREI",5965.91,"2026-01-01","CANTU 2026"],["CANTU","ITAJAÍ","JOAO PESSOA",26349.35,"2026-01-01","CANTU 2026"],["CANTU","ITAJAÍ","LAURO DE FREITAS",20009.84,"2026-01-01","CANTU 2026"],["CANTU","ITAJAÍ","LUIS EDUARDO MAGALHAES",19408.74,"2026-01-01","CANTU 2026"],["CANTU","ITAJAÍ","MACEIO",21414.35,"2026-01-01","CANTU 2026"],["CANTU","ITAJAÍ","MARACANAU",27399.35,"2026-01-01","CANTU 2026"],["CANTU","ITAJAÍ","MOOCA",5516.08,"2026-01-01","CANTU 2026"],["CANTU","ITAJAÍ","PETROLINA",25299.35,"2026-01-01","CANTU 2026"],["CANTU","ITAJAÍ","PRESIDENTE PRUDENTE",7903.23,"2026-01-01","CANTU 2026"],["CANTU","ITAJAÍ","RECIFE",26139.35,"2026-01-01","CANTU 2026"],["CANTU","ITAJAÍ","RIBEIRAO PRETO",7830.97,"2026-01-01","CANTU 2026"],["CANTU","ITAJAÍ","RIO DE JANEIRO",12188.95,"2026-01-01","CANTU 2026"],["CANTU","ITAJAÍ","SALVADOR",20009.84,"2026-01-01","CANTU 2026"],["CANTU","ITAJAÍ","SANTOS",5965.91,"2026-01-01","CANTU 2026"],["CANTU","ITAJAÍ","SAO JOSE DO RIO PRETO",8524.81,"2026-01-01","CANTU 2026"],["CANTU","ITAJAÍ","SIMOES FILHO",20009.84,"2026-01-01","CANTU 2026"],["CANTU","ITAJAÍ","VITORIA DA CONQUISTA",19425.0,"2026-01-01","CANTU 2026"],["CANTU","ITAJAÍ","BARUERI",5498.09,"2025-10-15","CANTU (Subcontratação)"],["CANTU","ITAJAÍ","CAMPINAS",6308.91,"2025-10-15","CANTU (Subcontratação)"],["CANTU","ITAJAÍ","CRATO",24178.19,"2025-10-15","CANTU (Subcontratação)"],["CANTU","ITAJAÍ","FEIRA DE SANTANA",21655.24,"2025-10-15","CANTU (Subcontratação)"],["CANTU","ITAJAÍ","FORTALEZA",30257.39,"2025-10-15","CANTU (Subcontratação)"],["CANTU","ITAJAÍ","ITUPEVA",6308.91,"2025-10-15","CANTU (Subcontratação)"],["CANTU","ITAJAÍ","JABOATAO DOS GUARARAPES",27676.75,"2025-10-15","CANTU (Subcontratação)"],["CANTU","ITAJAÍ","JACAREI",6877.41,"2025-10-15","CANTU (Subcontratação)"],["CANTU","ITAJAÍ","JOAO PESSOA",28859.54,"2025-10-15","CANTU (Subcontratação)"],["CANTU","ITAJAÍ","MACEIO",25956.32,"2025-10-15","CANTU (Subcontratação)"],["CANTU","ITAJAÍ","MOSSORÓ",29182.12,"2025-10-15","CANTU (Subcontratação)"],["CANTU","ITAJAÍ","RECIFE",27676.75,"2025-10-15","CANTU (Subcontratação)"],["CANTU","ITAJAÍ","RIBEIRAO PRETO",9110.81,"2025-10-15","CANTU (Subcontratação)"],["CANTU","ITAJAÍ","RIO DE JANEIRO",10055.2,"2025-10-15","CANTU (Subcontratação)"],["CANTU","ITAJAÍ","SALVADOR",22754.51,"2025-10-15","CANTU (Subcontratação)"],["CANTU","ITAJAÍ","SAO JOSE DO RIO PRETO",9612.59,"2025-10-15","CANTU (Subcontratação)"],["CANTU","ITUPEVA","FEIRA DE SANTANA",20977.01,"2025-10-15","CANTU (Subcontratação)"],["CANTU","ITUPEVA","FORTALEZA",25836.82,"2025-10-15","CANTU (Subcontratação)"],["CANTU","ITUPEVA","JABOATAO DOS GUARARAPES",16120.69,"2025-10-15","CANTU (Subcontratação)"],["CANTU","ITUPEVA","JOAO PESSOA",24761.55,"2025-10-15","CANTU (Subcontratação)"],["CANTU","ITUPEVA","MACEIO",28055.5,"2025-10-15","CANTU (Subcontratação)"],["CANTU","ITUPEVA","MOSSORÓ",22395.96,"2025-10-15","CANTU (Subcontratação)"],["CANTU","ITUPEVA","RECIFE",25488.43,"2025-10-15","CANTU (Subcontratação)"],["CANTU","ITUPEVA","SALVADOR",16166.46,"2025-10-15","CANTU (Subcontratação)"],["CANTU","ITUPEVA","SÃO JOSÉ DOS PINHAIS",21587.96,"2025-10-15","CANTU (Subcontratação)"],["CANTU","ITUPEVA","VITORIA DA CONQUISTA",27856.85,"2025-10-15","CANTU (Subcontratação)"],["CANTU","JABOATÃO","BARUERI",17631.05,"2025-10-15","CANTU (Subcontratação)"],["CANTU","JABOATÃO","CAMPINAS",17832.29,"2025-10-15","CANTU (Subcontratação)"],["CANTU","JABOATÃO","FEIRA DE SANTANA",6962.32,"2025-10-15","CANTU (Subcontratação)"],["CANTU","JABOATÃO","ITAJAÍ",23281.53,"2025-10-15","CANTU (Subcontratação)"],["CANTU","JABOATÃO","ITUPEVA",17836.31,"2025-10-15","CANTU (Subcontratação)"],["CANTU","JABOATÃO","JACAREI",17909.96,"2025-10-15","CANTU (Subcontratação)"],["CANTU","JABOATÃO","LUIS EDUARDO MAGALHAES",11931.82,"2025-10-15","CANTU (Subcontratação)"],["CANTU","JABOATÃO","SALVADOR",7215.19,"2025-10-15","CANTU (Subcontratação)"],["ENGEPACK","SIMOESFILHO","COTIA - SP",15513.88,"2026-04-01","ENGEPACK"],["FITESA","JACAREÍ","BRAGANCA",1956.77,"2026-04-01","FITESA 2026"],["FITESA","JACAREÍ","CABREUVA",2410.92,"2026-04-01","FITESA 2026"],["FITESA","JACAREÍ","CAIEIRAS",1906.31,"2026-04-01","FITESA 2026"],["FITESA","JACAREÍ","CAJAMAR",2130.58,"2026-04-01","FITESA 2026"],["FITESA","JACAREÍ","CAMACARI",16545.67,"2026-04-01","FITESA 2026"],["FITESA","JACAREÍ","CAPIVARI",3043.37,"2026-04-01","FITESA 2026"],["FITESA","JACAREÍ","COSMOPOLIS",2635.2,"2026-04-01","FITESA 2026"],["FITESA","JACAREÍ","CURITIBA",4092.96,"2026-04-01","FITESA 2026"],["FITESA","JACAREÍ","FLORIANOPOLIS",5550.73,"2026-04-01","FITESA 2026"],["FITESA","JACAREÍ","GUARULHOS",2130.58,"2026-04-01","FITESA 2026"],["FITESA","JACAREÍ","ITUPEVA",2298.79,"2026-04-01","FITESA 2026"],["FITESA","JACAREÍ","OSASCO",2130.58,"2026-04-01","FITESA 2026"],["FITESA","JACAREÍ","PIRAI",3835.05,"2026-04-01","FITESA 2026"],["FITESA","JACAREÍ","POA",1962.38,"2026-04-01","FITESA 2026"],["FITESA","JACAREÍ","RECIFE",24445.65,"2026-04-01","FITESA 2026"],["FITESA","JACAREÍ","SUZANO",2018.45,"2026-04-01","FITESA 2026"],["FITESA","JACAREÍ","VALINHOS",2130.58,"2026-04-01","FITESA 2026"],["FITESA","JACAREÍ","VINHEDO",2276.37,"2026-04-01","FITESA 2026"],["GOODYEAR","AMERICANA","GOIANA",23046.24,"","GOODYEAR"],["GOODYEAR","AMERICANA","JABOATÃO",22254.69,"","GOODYEAR"],["GOODYEAR","JABOATÃO","ALHANDRA",1847.47,"","GOODYEAR"],["GOODYEAR","JABOATÃO","CONDE",2093.8,"","GOODYEAR"],["GOODYEAR","PAULINIA","JABOATÃO",22422.14,"","GOODYEAR"],["GOODYEAR","PAULINIA","MURIBECA",23543.25,"","GOODYEAR"],["KIMBERLY","BARUERI","CAMAÇARI",17715.41,"2025-10-15","KIMBERLY"],["KIMBERLY","CAMAÇARI","CDMA",14797.68,"2025-10-15","KIMBERLY"],["KIMBERLY","CAMAÇARI","CDMA - MP",17807.52,"2025-10-15","KIMBERLY"],["KIMBERLY","CAMAÇARI","JABOATÃO",8648.18,"2025-10-15","KIMBERLY"],["KIMBERLY","CAMAÇARI","KIMBERLY - CAMAÇARI",1725.83,"2025-10-15","KIMBERLY"],["KIMBERLY","CAMAÇARI","SUZANO",15749.87,"2025-10-15","KIMBERLY"],["KIMBERLY","CAMAÇARI","SÃO JOÃO DA BOA VISTA -SP",17721.2,"2025-10-15","KIMBERLY"],["KIMBERLY","JACAREI","CAMAÇARI",16815.77,"2025-10-15","KIMBERLY"],["KIMBERLY","MOGI","CAMAÇARI",15800.22,"2025-10-15","KIMBERLY"],["KIMBERLY","MOGI","FORTALEZA",28814.95,"2025-10-15","KIMBERLY"],["KIMBERLY","MOGI","JABOATÃO",25153.05,"2025-10-15","KIMBERLY"],["KIMBERLY","MOGI ( MATÉRIA PRIMA)","CAMAÇARI",17807.52,"2025-10-15","KIMBERLY"],["LIQUID BRANDS","BARUERI","ARACAJÚ",19366.2,"2026-04-01","LIQUID BRANDS 2026"],["LIQUID BRANDS","BARUERI","BAHIA",16976.0,"2026-04-01","LIQUID BRANDS 2026"],["LIQUID BRANDS","BARUERI","BESSA -PB",23760.96,"2026-04-01","LIQUID BRANDS 2026"],["LIQUID BRANDS","BARUERI","BLUMENAÚ",12370.2,"2026-04-01","LIQUID BRANDS 2026"],["LIQUID BRANDS","BARUERI","BONOCÔ",17119.0,"2026-04-01","LIQUID BRANDS 2026"],["LIQUID BRANDS","BARUERI","CAJAMAR",1590.0,"2026-04-01","LIQUID BRANDS 2026"],["LIQUID BRANDS","BARUERI","FAROL MACEIO",21009.2,"2026-04-01","LIQUID BRANDS 2026"],["LIQUID BRANDS","BARUERI","FEIRA DE SANTANA",16027.2,"2026-04-01","LIQUID BRANDS 2026"],["LIQUID BRANDS","BARUERI","FLORIANÓPOLIS",12582.2,"2026-04-01","LIQUID BRANDS 2026"],["LIQUID BRANDS","BARUERI","FORTALEZA",25499.36,"2026-04-01","LIQUID BRANDS 2026"],["LIQUID BRANDS","BARUERI","JOINVILLE",12158.2,"2026-04-01","LIQUID BRANDS 2026"],["LIQUID BRANDS","BARUERI","LAURO DE FREITAS",17138.08,"2026-04-01","LIQUID BRANDS 2026"],["LIQUID BRANDS","BARUERI","MACEIÓ",20869.28,"2026-04-01","LIQUID BRANDS 2026"],["LIQUID BRANDS","BARUERI","NATAL",25938.2,"2026-04-01","LIQUID BRANDS 2026"],["LIQUID BRANDS","BARUERI","PERNAMBUCO",25299.83,"2026-04-01","LIQUID BRANDS 2026"],["LIQUID BRANDS","BARUERI","WASHINGTON SOARES",26415.2,"2026-04-01","LIQUID BRANDS 2026"],["M. DIAS","CAMAÇARI","BAYEUX",8795.96,"2026-01-01","M. DIAS 2026"],["M. DIAS","CAMAÇARI","CAÇAPAVA",12585.2,"2026-01-01","M. DIAS 2026"],["M. DIAS","CAMAÇARI","GUARULHOS",15123.68,"2026-01-01","M. DIAS 2026"],["M. DIAS","CAMAÇARI","JABOATÃO",8364.46,"2026-01-01","M. DIAS 2026"],["M. DIAS","CAMAÇARI","JACAREÍ",12695.2,"2026-01-01","M. DIAS 2026"],["M. DIAS","CAMAÇARI","JUNQUIROPOLIS",15829.7,"2026-01-01","M. DIAS 2026"],["M. DIAS","CAMAÇARI","MACEIO",6400.0,"2026-01-01","M. DIAS 2026"],["M. DIAS","CAMAÇARI","MAUÁ",12766.62,"2026-01-01","M. DIAS 2026"],["M. DIAS","CAMAÇARI","NOSSA SENHORA SOCORRO",4721.0,"2026-01-01","M. DIAS 2026"],["M. DIAS","CAMAÇARI","PAULISTA",8364.46,"2026-01-01","M. DIAS 2026"],["M. DIAS","CAMAÇARI","PINHAIS",20545.45,"2026-01-01","M. DIAS 2026"],["M. DIAS","CAMAÇARI","RIBEIRÃO PRETO",12972.5,"2026-01-01","M. DIAS 2026"],["M. DIAS","CAMAÇARI","RIO DE JANEIRO",12119.72,"2026-01-01","M. DIAS 2026"],["M. DIAS","CAMAÇARI","SÃO CAETANO DO SUL",12708.1,"2026-01-01","M. DIAS 2026"],["M. DIAS","CAMAÇARI","SÃO JOSÉ",17639.13,"2026-01-01","M. DIAS 2026"],["M. DIAS","CAMAÇARI","SÃO JOSÉ DE MIPIBU",9812.3,"2026-01-01","M. DIAS 2026"],["M. DIAS","CAMAÇARI","VITORIA DA CONQUISTA",6431.82,"2026-01-01","M. DIAS 2026"],["M. DIAS","FORTALEZA","JABOATÃO",5499.0,"2026-01-01","M. DIAS 2026"],["M. DIAS","FORTALEZA","SALVADOR",10153.39,"2026-01-01","M. DIAS 2026"],["M. DIAS","JABOATÃO","FEIRA DE SANTANA",8097.2,"2026-01-01","M. DIAS 2026"],["M. DIAS","JABOATÃO","NOSSA SENHORA SOCORRO",6975.21,"2026-01-01","M. DIAS 2026"],["M. DIAS","JABOATÃO","RIO DE JANEIRO",17697.66,"2026-01-01","M. DIAS 2026"],["M. DIAS","JABOATÃO","SALVADOR",8224.9,"2026-01-01","M. DIAS 2026"],["M. DIAS","JABOATÃO","SIMÕES FILHO",7866.5,"2026-01-01","M. DIAS 2026"],["M. DIAS","PAULISTA","SIMÕES FILHO",5619.38,"2026-01-01","M. DIAS 2026"],["M. DIAS","SIMÕES FILHO","BAYEUX",8054.6,"2026-01-01","M. DIAS 2026"],["M. DIAS","SIMÕES FILHO","PAULISTA",7645.1,"2026-01-01","M. DIAS 2026"],["M. DIAS","CAMAÇARI","JACAREÍ",10236.6,"2025-06-24","M. DIAS (Proposta Transccema)"],["M. DIAS","CAMAÇARI","SÃO CAETANO DO SUL",10236.4,"2025-06-24","M. DIAS (Proposta Transccema)"],["M. DIAS","CAMAÇARI","GUARULHOS",10236.4,"2025-06-16","M. DIAS (Proposta Transccema)"],["M. DIAS","CAMAÇARI","JUNQUIROPOLIS",13750.0,"2025-06-16","M. DIAS (Proposta Transccema)"],["M. DIAS","CAMAÇARI","MAUÁ",10000.0,"2025-06-16","M. DIAS (Proposta Transccema)"],["M. DIAS","CAMAÇARI","AGUDOS-SP",11150.0,"2025-04-01","M. DIAS (Proposta Transccema)"],["M. DIAS","CAMAÇARI","BAYEUX",7950.0,"2025-04-01","M. DIAS (Proposta Transccema)"],["M. DIAS","CAMAÇARI","CAÇAPAVA",10000.0,"2025-04-01","M. DIAS (Proposta Transccema)"],["M. DIAS","CAMAÇARI","JABOATÃO",7560.0,"2025-04-01","M. DIAS (Proposta Transccema)"],["M. DIAS","CAMAÇARI","LENÇOIS PAULISTA",10112.92,"2025-04-01","M. DIAS (Proposta Transccema)"],["M. DIAS","CAMAÇARI","NOSSA SENHORA SOCORRO",5000.0,"2025-04-01","M. DIAS (Proposta Transccema)"],["M. DIAS","CAMAÇARI","PAULISTA",7560.0,"2025-04-01","M. DIAS (Proposta Transccema)"],["M. DIAS","CAMAÇARI","RIBEIRÃO PRETO",10000.0,"2025-04-01","M. DIAS (Proposta Transccema)"],["M. DIAS","CAMAÇARI","RIO DE JANEIRO",10412.38,"2025-04-01","M. DIAS (Proposta Transccema)"],["M. DIAS","CAMAÇARI","SÃO JOSÉ",13198.63,"2025-04-01","M. DIAS (Proposta Transccema)"],["M. DIAS","CAMAÇARI","SÃO JOSÉ DE MIPIBU",8775.48,"2025-04-01","M. DIAS (Proposta Transccema)"],["M. DIAS","FORTALEZA","JABOATÃO",5100.0,"2025-04-01","M. DIAS (Proposta Transccema)"],["M. DIAS","FORTALEZA","SALVADOR",6014.0,"2025-04-01","M. DIAS (Proposta Transccema)"],["M. DIAS","JABOATÃO","FEIRA DE SANTANA",5800.0,"2025-04-01","M. DIAS (Proposta Transccema)"],["M. DIAS","JABOATÃO","NOSSA SENHORA SOCORRO",5500.0,"2025-04-01","M. DIAS (Proposta Transccema)"],["M. DIAS","JABOATÃO","SALVADOR",5660.0,"2025-04-01","M. DIAS (Proposta Transccema)"],["M. DIAS","JABOATÃO","SIMÕES FILHO",5640.0,"2025-04-01","M. DIAS (Proposta Transccema)"],["M. DIAS","PAULISTA","SIMÕES FILHO",5650.0,"2025-04-01","M. DIAS (Proposta Transccema)"],["M. DIAS","SIMÕES FILHO","BAYEUX",7950.0,"2025-04-01","M. DIAS (Proposta Transccema)"],["M. DIAS","SIMÕES FILHO","PAULISTA",7560.0,"2025-04-01","M. DIAS (Proposta Transccema)"],["M. DIAS","CAMAÇARI","BAYEUX",7997.8,"","M. DIAS (Valor OTM)"],["M. DIAS","CAMAÇARI","CAÇAPAVA",13590.7,"","M. DIAS (Valor OTM)"],["M. DIAS","CAMAÇARI","GUARULHOS",13594.76,"","M. DIAS (Valor OTM)"],["M. DIAS","CAMAÇARI","JABOATÃO",7607.8,"","M. DIAS (Valor OTM)"],["M. DIAS","CAMAÇARI","JACAREÍ",13700.7,"","M. DIAS (Valor OTM)"],["M. DIAS","CAMAÇARI","JUNQUIROPOLIS",17181.1,"","M. DIAS (Valor OTM)"],["M. DIAS","CAMAÇARI","MAUÁ",13849.12,"","M. DIAS (Valor OTM)"],["M. DIAS","CAMAÇARI","NOSSA SENHORA SOCORRO",5047.8,"","M. DIAS (Valor OTM)"],["M. DIAS","CAMAÇARI","PAULISTA",7607.8,"","M. DIAS (Valor OTM)"],["M. DIAS","CAMAÇARI","RIBEIRÃO PRETO",13780.0,"","M. DIAS (Valor OTM)"],["M. DIAS","CAMAÇARI","RIO DE JANEIRO",11849.71,"","M. DIAS (Valor OTM)"],["M. DIAS","CAMAÇARI","SÃO CAETANO DO SUL",13747.1,"","M. DIAS (Valor OTM)"],["M. DIAS","CAMAÇARI","SÃO JOSÉ",19001.88,"","M. DIAS (Valor OTM)"],["M. DIAS","CAMAÇARI","SÃO JOSÉ DE MIPIBU",8859.48,"","M. DIAS (Valor OTM)"],["M. DIAS","FORTALEZA","JABOATÃO",5825.8,"","M. DIAS (Valor OTM)"],["M. DIAS","FORTALEZA","SALVADOR",8353.1,"","M. DIAS (Valor OTM)"],["M. DIAS","JABOATÃO","FEIRA DE SANTANA",5834.0,"","M. DIAS (Valor OTM)"],["M. DIAS","JABOATÃO","NOSSA SENHORA SOCORRO",5632.96,"","M. DIAS (Valor OTM)"],["M. DIAS","JABOATÃO","SALVADOR",5829.95,"","M. DIAS (Valor OTM)"],["M. DIAS","JABOATÃO","SIMÕES FILHO",5955.85,"","M. DIAS (Valor OTM)"],["M. DIAS","PAULISTA","SIMÕES FILHO",5946.18,"","M. DIAS (Valor OTM)"],["M. DIAS","SIMÕES FILHO","BAYEUX",8381.4,"","M. DIAS (Valor OTM)"],["M. DIAS","SIMÕES FILHO","PAULISTA",7971.9,"","M. DIAS (Valor OTM)"],["NOVA PAGINA","CAJAMAR","CAMAÇARI",16956.49,"2025-05-15","NOVA PAGINA"],["NOVA PAGINA","CAJAMAR","EXTREMA-MG",2118.98,"2025-05-15","NOVA PAGINA"],["NOVA PAGINA","CAJAMAR","JANDIRA-SP",1772.81,"2025-05-15","NOVA PAGINA"],["NOVA PAGINA","CAJAMAR","SÃO JOSÉ DOS PINHAIS-PR",3905.0,"2025-05-15","NOVA PAGINA"],["NOVA PAGINA","CAMAÇARI","SIMÕES FILHO",1564.55,"2025-05-15","NOVA PAGINA"],["NOVA PAGINA","VARGINHA","CAMAÇARI",19760.8,"2025-05-15","NOVA PAGINA"],["PORTALPLAST","DIADEMA","BOM CONSELHO-PE",21957.0,"2026-01-01","PORTALPLAST 2026"],["PORTALPLAST","DIADEMA","CARAMBEI-PR",5505.0,"2026-01-01","PORTALPLAST 2026"],["PORTALPLAST","DIADEMA","GARANHUNS-PE",22868.0,"2026-01-01","PORTALPLAST 2026"],["SANTA EDWIRGES","RIB. PIRES","ARACAJU",18803.05,"2025-08-21","SANTA EDWIRGES"],["SANTA EDWIRGES","RIB. PIRES","ARAPIRACA",20115.9,"2025-08-21","SANTA EDWIRGES"],["SANTA EDWIRGES","RIB. PIRES","CARUARU",23496.76,"2025-08-21","SANTA EDWIRGES"],["SANTA EDWIRGES","RIB. PIRES","FEIRA DE SANTANA",16220.75,"2025-08-21","SANTA EDWIRGES"],["SANTA EDWIRGES","RIB. PIRES","JOÃO PESSOA / REGIÃO",24466.75,"2025-08-21","SANTA EDWIRGES"],["SANTA EDWIRGES","RIB. PIRES","MACEIÓ",20864.55,"2025-08-21","SANTA EDWIRGES"],["SANTA EDWIRGES","RIB. PIRES","MOSSORÓ",24694.6,"2025-08-21","SANTA EDWIRGES"],["SANTA EDWIRGES","RIB. PIRES","NATAL",26582.5,"2025-08-21","SANTA EDWIRGES"],["SANTA EDWIRGES","RIB. PIRES","NSA SENHORA SOCORRO",18857.3,"2025-08-21","SANTA EDWIRGES"],["SANTA EDWIRGES","RIB. PIRES","RECIFE / REGIÃO",23056.25,"2025-08-21","SANTA EDWIRGES"],["SANTA EDWIRGES","RIB. PIRES","SALVADOR / REGIÃO",17197.25,"2025-08-21","SANTA EDWIRGES"],["SELMI","SUMARE","ARACAJU",18738.08,"2026-04-01","SELMI 04.2026"],["SELMI","SUMARE","CAMPINA GRANDE",26215.0,"2026-04-01","SELMI 04.2026"],["SELMI","SUMARE","FEIRA DE SANTANA",18404.0,"2026-04-01","SELMI 04.2026"],["SELMI","SUMARE","IRECE",19902.0,"2026-04-01","SELMI 04.2026"],["SELMI","SUMARE","ITABAIANA",20865.0,"2026-04-01","SELMI 04.2026"],["SELMI","SUMARE","JABOATÃO DOS GUARARAPES",23567.0,"2026-04-01","SELMI 04.2026"],["SELMI","SUMARE","JEQUIE",15515.0,"2026-04-01","SELMI 04.2026"],["SELMI","SUMARE","LIMOEIRO DE ANADIA",23005.0,"2026-04-01","SELMI 04.2026"],["SELMI","SUMARE","NOSSA SENHORA DO SOCORRO",19843.15,"2026-04-01","SELMI 04.2026"],["SELMI","SUMARE","RECIFE",23555.0,"2026-04-01","SELMI 04.2026"],["SELMI","SUMARE","SANTA MARIA DA VITORIA",17398.2,"2026-04-01","SELMI 04.2026"],["SUZANO","ARUJÁ","CABO DE ST. AGOSTINHO",20500.0,"","SUZANO"],["SUZANO","ARUJÁ","FORTALEZA",24000.0,"","SUZANO"],["SUZANO","ARUJÁ","SIMÕES FILHO",19000.0,"","SUZANO"]];
+function _normRota(s){return String(s||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toUpperCase().replace(/\s+/g,' ').trim();}
+function _normSolta(s){return _normRota(s).replace(/→/g,'>').replace(/[^A-Z0-9>]/g,'');}
+// Usa TODOS os valores da tabela. Para cada Cliente + Rota, o valor de vigência mais recente
+// fica com o nome da rota "limpo" (é o que entra automático); os demais aparecem na lista
+// com o nome da tabela entre parênteses, para escolher quando for o caso.
+function montarFretes(linhas){
+  const grupos={};
+  (linhas||[]).forEach(l=>{
+    try{
+      const cli=String(l[0]||'').trim().toUpperCase(), ori=String(l[1]||'').trim(), des=String(l[2]||'').trim();
+      const val=Number(l[3]);
+      if(!cli||(!ori&&!des)||!isFinite(val)||val<=0)return;
+      const rota=ori&&des?ori+' → '+des:(ori||des);
+      const k=cli+'|'+_normSolta(rota);
+      (grupos[k]=grupos[k]||[]).push({cliente:cli,rota,frete_bruto:Math.round(val*100)/100,vig:String(l[4]||''),tab:String(l[5]||'').trim()});
+    }catch(e){console.warn('Linha de frete ignorada',l,e);}
+  });
+  const res=[];
+  Object.keys(grupos).forEach(k=>{
+    const g=grupos[k].sort((a,b)=>b.vig.localeCompare(a.vig));
+    const vistos=new Set();
+    g.forEach((r,i)=>{
+      if(vistos.has(r.frete_bruto))return; vistos.add(r.frete_bruto);
+      if(i===0){res.push({cliente:r.cliente,rota:r.rota,frete_bruto:r.frete_bruto,tabela:r.tab,vigencia:r.vig});return;}
+      const dt=r.vig?' '+r.vig.slice(8,10)+'/'+r.vig.slice(5,7)+'/'+r.vig.slice(0,4):'';
+      res.push({cliente:r.cliente,rota:r.rota+' ('+(r.tab||'outra tabela')+dt+')',frete_bruto:r.frete_bruto,tabela:r.tab,vigencia:r.vig});
+    });
+  });
+  return res.sort((a,b)=>a.cliente.localeCompare(b.cliente)||a.rota.localeCompare(b.rota));
+}
+let FRETES = montarFretes(FRETES_BASE);
+// Lê a aba TABELA FRETE de um workbook (SheetJS). Retorna as linhas no formato de FRETES_BASE, ou null se não tiver a aba.
+function lerAbaTabelaFrete(wb){
+  const sn=wb.SheetNames.find(n=>n.trim().toUpperCase()==='TABELA FRETE');
+  if(!sn)return null;
+  const rows=XLSX.utils.sheet_to_json(wb.Sheets[sn],{header:1,defval:null,raw:true});
+  let hi=-1;
+  for(let i=0;i<Math.min(15,rows.length);i++){const r=(rows[i]||[]).map(c=>c==null?'':String(c).trim().toUpperCase());if(r.includes('CLIENTE')&&r.includes('ORIGEM')){hi=i;break;}}
+  if(hi<0)throw new Error('aba TABELA FRETE sem cabeçalho CLIENTE/ORIGEM');
+  const cab=rows[hi].map(c=>c==null?'':String(c).trim().toUpperCase());
+  const col=(...ns)=>{for(const n of ns){const i=cab.findIndex(c=>c===n||c.startsWith(n));if(i>=0)return i;}return -1;};
+  const iC=col('CLIENTE'),iO=col('ORIGEM'),iD=col('DESTINO'),iV=col('VALOR FRETE','VALOR'),iVg=col('VIGÊNCIA','VIGENCIA'),iT=col('TABELA ORIGINAL','TABELA');
+  if(iC<0||iO<0||iD<0||iV<0)throw new Error('faltam colunas CLIENTE/ORIGEM/DESTINO/VALOR FRETE');
+  const num=v=>{if(v==null||v==='')return NaN;if(typeof v==='number')return v;let t=String(v).replace(/[^0-9,.-]/g,'');if(t.indexOf(',')>=0)t=t.replace(/\./g,'').replace(',','.');return parseFloat(t);};
+  const dt=v=>{if(v==null||v==='')return '';
+    if(typeof v==='number'&&v>1000){const d=new Date(Math.round((v-25569)*86400000));return d.getUTCFullYear()+'-'+String(d.getUTCMonth()+1).padStart(2,'0')+'-'+String(d.getUTCDate()).padStart(2,'0');}
+    const t=String(v).trim();let m=t.match(/^(\d{4})-(\d{2})-(\d{2})/);if(m)return m[1]+'-'+m[2]+'-'+m[3];
+    m=t.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})/);if(m)return m[3]+'-'+m[2].padStart(2,'0')+'-'+m[1].padStart(2,'0');return '';};
+  const out=[];
+  for(let i=hi+1;i<rows.length;i++){
+    const r=rows[i]||[];const cli=r[iC]==null?'':String(r[iC]).trim();
+    if(!cli||cli.toUpperCase()==='CLIENTE')continue;
+    out.push([cli,r[iO]==null?'':String(r[iO]).trim(),r[iD]==null?'':String(r[iD]).trim(),num(r[iV]),iVg>=0?dt(r[iVg]):'',iT>=0&&r[iT]!=null?String(r[iT]).trim():'']);
+  }
+  return out;
+}
 
 // PERF carregado via importação ou descompressão abaixo
 let PERF       = {};
 const PERF_NOMES = {};
 
 let paradas  = [{cliente:'',rota:'',frete:0,auto:false}];
-let CSV_LINHAS = [];  // linhas do CSV de pagamentos carregado
-let CSV_HEADER = '';  // cabeçalho original do CSV
 let despesas = [{tipo:'Estacionamento',valor:0},{tipo:'Pneu',valor:0}];
 let aprovado = false, motIdx = -1, filtrados = [...MOTORISTAS];
 
@@ -962,7 +983,8 @@ function lerPerfXlsx(file){
     try{
       const novoPERF={},novoNomes={};let tot=0;
       wb.SheetNames.forEach(sn=>{
-        if(sn.toUpperCase()==='LISTAS')return;
+        const snU=sn.trim().toUpperCase();
+        if(snU==='LISTAS'||snU==='TABELA FRETE'||snU==='ÍNDICE'||snU==='INDICE')return;
         const ws=wb.Sheets[sn];
         const rows=XLSX.utils.sheet_to_json(ws,{header:1,defval:null,raw:true});
         if(!rows||rows.length<3)return;
@@ -1043,70 +1065,22 @@ function lerPerfXlsx(file){
       });
       Object.keys(novoPERF).forEach(k=>{PERF[k]=novoPERF[k];});
       Object.keys(novoNomes).forEach(k=>{PERF_NOMES[k]=novoNomes[k];});
-      setStatus('st-perf','ok',tot+' motoristas');
+      let msgFrete='';
+      try{
+        const linhasFrete=lerAbaTabelaFrete(wb);
+        if(linhasFrete){
+          const novos=montarFretes(linhasFrete);
+          if(novos.length){FRETES=novos;msgFrete=' · '+novos.length+' fretes';atualizarBadgeFretes();renderP();calc();}
+          else msgFrete=' · fretes vazios';
+        } else msgFrete=' · sem aba de frete';
+      }catch(exF){console.error(exF);msgFrete=' · erro no frete';alert('Erro ao ler a aba TABELA FRETE: '+exF.message+'\nA tabela de frete anterior foi mantida.');}
+      setStatus('st-perf',msgFrete.includes('erro')?'err':'ok',tot+' mot.'+msgFrete);
       atualizarV();
     }catch(ex){setStatus('st-perf','err','erro: '+ex.message);console.error(ex);}
   });
 }
 
-// Fretes
-function dropFrete(e){e.preventDefault();e.currentTarget.classList.remove('drag');if(e.dataTransfer.files[0])lerFretesXlsx(e.dataTransfer.files[0]);}
-function lerFretesFile(ev){if(ev.target.files[0])lerFretesXlsx(ev.target.files[0]);ev.target.value='';}
-function lerFretesXlsx(file){
-  setStatus('st-frete','idle','lendo...');
-  lerXlsx(file,wb=>{
-    try{
-      const res=[],skip=new Set(['Planilha3','BRIDGESTONE (2)']),proc={};
-      const L=v=>v?String(v).replace(/\s+/g,' ').trim():'';
-      const F=v=>{if(v==null||v==='')return null;try{let s=String(v).replace(/[^0-9,.-]/g,'');if(s.indexOf(',')>=0)s=s.replace(/\./g,'').replace(',','.');const f=parseFloat(s);return(f>200&&f<500000)?Math.round(f*100)/100:null;}catch{return null;}};
-      const NB=sn=>sn.replace(/\s*(2026|2025|04\.2026|\(2\))\s*$/,'').trim().toUpperCase().replace(/\s+/g,' ');
-      wb.SheetNames.forEach(sn=>{
-        if(skip.has(sn.trim()))return;
-        const cli=NB(sn),is26=sn.includes('2026')||sn.includes('04.2026');
-        if(proc[cli]&&proc[cli]===true&&!is26)return;
-        const ws=wb.Sheets[sn];
-        const rows=XLSX.utils.sheet_to_json(ws,{header:1,defval:'',raw:true});
-        const rotas=[];
-        if(cli.includes('BAUDUCCO')||cli.includes('PANDURATA')){
-          rows.slice(2).forEach(r=>{const o=L(r[0]),d=L(r[1]),f=F(r[3]);if(f&&d)rotas.push({cliente:cli,rota:o?o+' → '+d:d,frete_bruto:f});});
-        } else if(cli.includes('SANTA EDWIRGES')){
-          rows.slice(3).forEach(r=>{const d=L(r[1]),f=F(r[2]);if(f&&d)rotas.push({cliente:cli,rota:d,frete_bruto:f});});
-        } else if(cli.includes('NOVA PAGINA')){
-          rows.slice(5).forEach(r=>{const o=L(r[0]),d=L(r[1]),f=F(r[2]);if(f&&d)rotas.push({cliente:cli,rota:o?o+' → '+d:d,frete_bruto:f});});
-        } else if(cli.includes('SELMI')){
-          rows.slice(3).forEach(r=>{const o=L(r[0]),d=L(r[1]),f=F(r[2]);if(f&&o&&!/ROTA|VIG|ORIGEM/i.test(o))rotas.push({cliente:cli,rota:d?o+' → '+d:o,frete_bruto:f});});
-        } else if(cli.includes('BASF')){
-          rows.slice(7).forEach(r=>{const o=L(r[0]),d=L(r[1]),f=F(r[2]);if(f&&d&&!/ORIGEM/i.test(o))rotas.push({cliente:cli,rota:o?o+' → '+d:d,frete_bruto:f});});
-        } else if(cli.includes('CANTU')){
-          if(is26){rows.slice(4).forEach(r=>{const o=L(r[0]),d=L(r[1]),f=F(r[2]);if(f&&d&&o&&!/ORIGEM/i.test(o))rotas.push({cliente:cli,rota:o+' → '+d,frete_bruto:f});});}
-          else{rows.slice(5).forEach(r=>{const o=L(r[1]),d=L(r[3]),f=F(r[5]);if(f&&d&&L(r[0]))rotas.push({cliente:cli,rota:o+' → '+d,frete_bruto:f});});}
-        } else {
-          let ci=null;
-          for(let i=0;i<Math.min(12,rows.length);i++){const v=rows[i].map(c=>L(c).toUpperCase());if(v.some(x=>['ORIGEM','ROTA','VEÍCULO','TRANSPORTADORA'].includes(x))){ci=i;break;}}
-          if(ci==null)return;
-          const cab=rows[ci].map(c=>L(c).toUpperCase());
-          const fc=(...ns)=>{for(const n of ns){const i=cab.findIndex(c=>c.includes(n));if(i>=0)return i;}return null;};
-          const io=fc('ORIGEM','ROTA','VEÍCULO'),id=fc('DESTINO','ENTREGA','COLETA-ENTREGA');
-          const ifr=fc('FRETE 2026','FRETE-04','AJUSTE 6%','AJUSTE 4,8%','TABELA ATUAL','TABELA','FRETE BRUTO','VALOR ATUAL','CARRETA TRUCADA','FRETE PESO','PROPOSTA','RESJUSTE','AJUSTE');
-          if(ifr==null)return;
-          rows.slice(ci+1).forEach(r=>{
-            if(!r.some(x=>x))return;
-            const o=io!=null&&io<r.length?L(r[io]):'',d=id!=null&&id<r.length?L(r[id]):'';
-            const f=F(r[ifr]);if(!f||(!o&&!d))return;
-            rotas.push({cliente:cli,rota:(o&&d)?o+' → '+d:(o||d),frete_bruto:f});
-          });
-        }
-        if(rotas.length){proc[cli]=is26;res.splice(0,res.length,...res.filter(x=>x.cliente!==cli),...rotas);}
-      });
-      if(!res.length){setStatus('st-frete','err','nenhuma rota');return;}
-      FRETES=[...res];
-      const nc=new Set(res.map(f=>f.cliente)).size;
-      setStatus('st-frete','ok',nc+' clientes · '+res.length+' rotas');
-      document.getElementById('cnt-fretes').textContent=nc+' clientes · Imposto 12%';
-      renderP();calc();
-    }catch(ex){setStatus('st-frete','err','erro: '+ex.message);}
-  });
-}
+function atualizarBadgeFretes(){const el=document.getElementById('cnt-fretes');if(el)el.textContent=new Set(FRETES.map(f=>f.cliente)).size+' clientes · Imposto 12%';}
 
 // ── Motorista ──
 function filtrarMot(){
@@ -1214,7 +1188,9 @@ function importV(v,card){
           const normStr = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toUpperCase().trim();
           const rotaNorm = normStr(rota);
           const rotasCliente = rotasDe(cliente);
-          const rotaMatch = rotasCliente.find(r => normStr(r.rota) === rotaNorm);
+          const rotaSolta = _normSolta(rota);
+          const rotaMatch = rotasCliente.find(r => normStr(r.rota) === rotaNorm)
+                         || rotasCliente.find(r => _normSolta(r.rota) === rotaSolta);
           const frete = rotaMatch ? rotaMatch.frete_bruto : 0;
           // Se achou rota na tabela, usar a rota da tabela (com grafia correta)
           const rotaFinal = rotaMatch ? rotaMatch.rota : rota;
@@ -1742,92 +1718,10 @@ function confirmarRcardAssn() {
   document.getElementById('cv-assn-area').style.display = 'block';
 }
 
-// ── CSV Pagamentos ──
-function lerCSVFile(event) {
-  const file = event.target.files[0];
-  if(!file) return;
-  setStatus('st-csv','idle','lendo...');
-  const reader = new FileReader();
-  reader.onload = e => {
-    try {
-      const texto = e.target.result;
-      const linhas = texto.split(/\r?\n/).filter(l => l.trim());
-      CSV_HEADER = linhas[0];
-      CSV_LINHAS = linhas.slice(1).map(l => {
-        const cols = l.split(';');
-        return { linha: l, cols, nome: cols[0] ? cols[0].trim() : '' };
-      });
-      setStatus('st-csv','ok', CSV_LINHAS.length + ' motoristas');
-      document.getElementById('ir-csv').classList.add('loaded');
-    } catch(ex) {
-      setStatus('st-csv','err','erro ao ler');
-    }
-  };
-  reader.readAsText(file, 'UTF-8');
-}
-
-function exportarPagamentoCSV(nomeMot, valor) {
-  if(!CSV_LINHAS.length) {
-    alert('Carregue primeiro a planilha de pagamentos (CSV) no card de importação!');
-    return false;
-  }
-  // Normalizar nome para comparação
-  const norm = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
-  const nNom = norm(nomeMot);
-
-  // Buscar motorista no CSV
-  let idx = CSV_LINHAS.findIndex(l => norm(l.nome) === nNom);
-  if(idx < 0) {
-    // Busca parcial por sobrenome
-    const partes = nNom.split(' ').filter(p => p.length > 3);
-    idx = CSV_LINHAS.findIndex(l => partes.every(p => norm(l.nome).includes(p)));
-  }
-  if(idx < 0) {
-    alert('Motorista "' + nomeMot + '" não encontrado na planilha de pagamentos!\nVerifique se o nome está igual na planilha CSV.');
-    return false;
-  }
-
-  // Preencher valor na última coluna (Valor)
-  const cols = CSV_LINHAS[idx].cols.slice();
-  // Garantir que tem 9 colunas
-  while(cols.length < 9) cols.push('');
-  cols[8] = String(valor.toFixed(2)).replace('.',',');
-  CSV_LINHAS[idx].cols = cols;
-  CSV_LINHAS[idx].linha = cols.join(';');
-
-  return true;
-}
-
-function exportarEBaixar() {
-  const m = MOTORISTAS[motIdx];
-  if(!m) { alert('Selecione um motorista primeiro!'); return; }
-  const liq = parseFloat(document.getElementById('r-total').textContent.replace('R$ ','').replace(/\./g,'').replace(',','.')) || 0;
-  if(liq <= 0) { alert('Pagamento líquido zerado. Verifique o fechamento!'); return; }
-  const ok = exportarPagamentoCSV(m.nome, liq);
-  if(ok) {
-    baixarCSV();
-    alert('✅ Pagamento de ' + m.nome + ' (R$ ' + fmt(liq) + ') exportado!');
-  }
-}
-
-function baixarCSV() {
-  if(!CSV_LINHAS.length) {
-    alert('Nenhuma planilha CSV carregada!');
-    return;
-  }
-  const conteudo = CSV_HEADER + '\n' + CSV_LINHAS.map(l => l.linha).join('\n');
-  const blob = new Blob([conteudo], {type:'text/csv;charset=utf-8'});
-  const url  = URL.createObjectURL(blob);
-  const a    = document.createElement('a');
-  const hoje = new Date().toISOString().slice(0,10).replace(/-/g,'');
-  a.href = url; a.download = 'PLANILHA_' + hoje + '.csv'; a.click();
-  URL.revokeObjectURL(url);
-}
-
 // ── INIT ──
 document.getElementById('gb-badge').style.cssText=getBadge(88);
 carregarFolgaAdds();reconstruirFolgaData();sincronizarFolgasNuvem();try{setInterval(function(){ if(typeof sincronizarFolgasNuvem==="function") sincronizarFolgasNuvem(); },60000);}catch(e){}
-renderMot();renderP();renderD();calc();
+atualizarBadgeFretes();renderMot();renderP();renderD();calc();
 
 // ── Descomprimir PERF embutido ──
 (function(){
