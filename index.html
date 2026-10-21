@@ -724,7 +724,9 @@ const FOLGA_RENAME = {"Cláudio De Souza Santos": "Claúdio De Souza Santos", "E
 const _FSTOP={de:1,da:1,do:1,dos:1,das:1,e:1,s:1};
 function _semAcento(s){try{return String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/\s+/g,' ').trim();}catch(e){return String(s||'').toLowerCase().trim();}}
 function _toksNome(s){return _semAcento(s).split(' ').filter(function(w){return w&&!_FSTOP[w];});}
-function _nomesCadastro(){try{return (typeof MOTORISTAS!=='undefined'&&Array.isArray(MOTORISTAS))?MOTORISTAS.map(function(m){return m&&m.nome;}).filter(Boolean):[];}catch(e){return [];}}
+// Cadastro de motoristas conhecido em 21/10/2026 (usado para reconhecer nomes mesmo antes de carregar a planilha)
+const FOLGA_CADASTRO = ["Adailton Costa Damasceno", "Adriano Moreira Da Silva", "Adriano Santos Oliveira", "Adson Cruz Dos Santos", "Alailson de Jesus Matos", "Alenildo Soares Da Silva", "Alexandre Santos Vieira", "Anailson De Jesus Nascimento", "Anderson Barbalha Quintela", "Anderson Cassiano Da Silva", "Anderson Santos Da Cruz", "André Luis Santos Do Carmo", "André Luiz De Jesus Silva", "Antonio Barbosa Lima", "Antonio Costa Dos Santos", "Antonio Donizetti Moreira", "Antonio Marcos Carvalho Santos", "Bruno Emanuel Mazeo De Souza", "Carlindo Jose Pimentel", "Carlos Araujo da Silva", "Charles Augusto Dias Cornelio", "Claudemir Timóteo Cardoso", "Claúdio Batista Santos", "Claudio Conceição Dos S De Santana", "Claúdio De Souza Santos", "Claudio José Da Silva", "Claudio Pereira Rocha De Meneses", "Crispim Almeida", "Danilo Pereira Damascena", "Davi Moreira Da Silva", "Davi Ribeiro Dutra", "Demivaldo Amado Da Silva", "Derivan Araujo de Freitas", "Edilton Vilela De Oliveira", "Edinaldo Santino Da Silva", "Edivan Cassimiro Bezerra", "Edmilson De Jesus Silva", "Edson Carlos Da Silva", "Edson Santos Dias", "Eduardo Santana De Jesus", "Edvaldo Ribeiro Da Costa Junior", "Eldinei Miranda Dos Santos", "Elinaldo Diogo Da Silva", "Eliomar Ribeiro Oliveira", "Emerson Santos De Almeida", "Evandro Reis de Jesus", "Everton Pereira Hungria", "Fábio Oliveira Matos", "Fernando José De Oliveira", "Francisco Assis Oliveria", "Francisco Tascio Lima Pinheiro", "George Barbosa De Santana", "Getúlio Ribeiro dos Santos", "Gilmar Aureliano Da Silva", "Givaldo Ferreira Da Silva", "Gustavo Araújo Aguiar", "Gutemberg Sena Oliveira", "Hamilton De Oliveira Moreira", "Helio Umburana Oliveira", "Hildevan Santana Da Silva", "Igor Soares Santos", "Jailson Reis De Jesus", "Jailson Santos De Jesus", "Jeferson Da Silva Costa", "Jefferson Douglas De Souza Ferreira", "Jiorlando Moço Dos Santos", "Joaci Pereira De Araújo", "Joelson Ribeiro Costa", "Joilton Santos Dias Pereira", "Jorge Santana Brito Filho", "Josafa Ribeiro Nunes", "José Antonio Dias Do Nascimento", "José Augusto Cavalcante Da Silva", "Josè Carlos Abreu Santos", "José Carlos Rodrigues", "José Cloves Machado Pereira", "Jose Cristovo da Silva", "José Diogenes Filho", "Jose De Souza Da Silva", "José Deocrécio Santos", "José Eduardo Dos Santos Silva", "José Ernande Fernandes Costa", "José Givaldo Da Silva", "José Renato De Almeida", "José Silva Souza", "José Tyago Dos Santos", "José Valter da Silveira", "José Zito da Silva", "Josenilton Barbosa Dos Santos", "Josenilton De Jesus Cavalcante", "Josenilton Jesus Da Silva", "Jucimar De Jesus Dos Santos", "Julio Cesar Dos Santos Barbosa", "Juvenal Cerqueira Dos Santos", "Klauber Valadares Barbosa", "Lazaro Alves Tenorio Cavalcante", "Leandro Do Carmo Santos", "Lenilson José Da Silva", "Lindomar de Oliveira", "Lourival De Jesus Dos Santos", "Lourival Dos Santos Costa", "Luciano Marcelino Dos Santos", "Luis Cesar Da Silva Gois", "Luiz Carlos Da Cruz Ávila", "Luiz Carlos Dos Santos", "Marcelo Costa Brandão", "Marcelo Da Costa Martins", "Márcio André Sousa Silva", "Mário Sérgio F Souza", "Neilson Da Silva Barbosa", "Osnildo Alves De Moraes", "Paulo Renato Dos Santos Carmo", "Paulo Sergio dos Santos", "Raul Pereira Dos Santos", "Regivan Galdino De Oliveira", "Reinan Silva De Barro", "Renato José De Aquino", "Renato Santos Damasceno", "Renivaldo Oliveira Santana", "Robson Cerqueira De Lima", "Rodrigo Carneiro Rabelo", "Samuel Almeida Silva", "Sidiclei Costa Oliveira", "Sidnei Pedroso dos Santos", "Sidomar Dos Santos Ribeiro", "Silvestre Vieira Temoteo", "Sirley Dias Gonçalves", "Tadeu Da Anunciação Almeida", "Tarcisio Conceição Dos Santos", "Thiago Conceição Santana Dos Reis", "Uarlen Paixão Tavares", "Vaguiner Sacramento De Oliveira", "Vilmar Augusto Bonfim", "Washington Queiroz Tertuliano", "Wilson Teixeira Da Silva", "Carlos André Ferreira De Souza", "Adilson Dos Santos Oliveira", "Regivaldo Alves Gois", "Djalma Dos Santos Silva", "Tiago Silva Almeida", "Jaime Ferreira Da Silva", "Manoel Nildo Alves Dos Santos", "Marcelo Reis Rocha", "Hildo Venicius Santana Da Silva"];
+function _nomesCadastro(){try{const a=(typeof MOTORISTAS!=='undefined'&&Array.isArray(MOTORISTAS))?MOTORISTAS.map(function(m){return m&&m.nome;}).filter(Boolean):[];FOLGA_CADASTRO.forEach(function(n){if(a.indexOf(n)<0)a.push(n);});return a;}catch(e){return FOLGA_CADASTRO.slice();}}
 // Procura um nome curto (ex.: "David Ribeiro") dentro dos nomes completos. Só aceita se achar UM único motorista.
 function _buscaNoCadastro(n,lista,umaPalavra){
   try{
@@ -1030,6 +1032,8 @@ function lerMotoristasXlsx(file){
       });
       if(!res.length){setStatus('st-mot','err','nenhum encontrado');return;}
       MOTORISTAS=[...res];filtrados=[...MOTORISTAS];motIdx=-1;
+      try{localStorage.setItem('tc_motoristas_v1',JSON.stringify(res));}catch(e){console.error('Não consegui guardar a lista de motoristas neste aparelho:',e);}
+      try{reconstruirFolgaData();}catch(e){}
       setStatus('st-mot','ok',res.length+' motoristas');
       document.getElementById('cnt-mot').textContent=res.length+' motoristas';
       renderMot();atualizarV();
@@ -1783,6 +1787,15 @@ function confirmarRcardAssn() {
 
 // ── INIT ──
 document.getElementById('gb-badge').style.cssText=getBadge(88);
+// Recupera a última planilha de motoristas carregada (fica salva neste aparelho)
+try{
+  const _ms=JSON.parse(localStorage.getItem('tc_motoristas_v1')||'null');
+  if(Array.isArray(_ms)&&_ms.length&&_ms.every(function(m){return m&&typeof m.nome==='string';})){
+    MOTORISTAS=_ms;filtrados=[...MOTORISTAS];motIdx=-1;
+    try{setStatus('st-mot','ok',_ms.length+' motoristas (salvos)');}catch(e){}
+    try{const _c=document.getElementById('cnt-mot');if(_c)_c.textContent=_ms.length+' motoristas';}catch(e){}
+  }
+}catch(e){console.error('Erro ao recuperar a lista de motoristas salva:',e);}
 carregarFolgaAdds();reconstruirFolgaData();sincronizarFolgasNuvem();try{setInterval(function(){ if(typeof sincronizarFolgasNuvem==="function") sincronizarFolgasNuvem(); },60000);}catch(e){}
 atualizarBadgeFretes();renderMot();renderP();renderD();calc();
 
@@ -1903,7 +1916,7 @@ atualizarBadgeFretes();renderMot();renderP();renderD();calc();
 <div id="relfolga-ov" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9999;align-items:flex-start;justify-content:center;padding:28px 12px;overflow:auto">
   <div style="background:#fff;border-radius:14px;max-width:920px;width:100%;padding:20px">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-      <b style="font-size:16px">Relatorio de Folgas <span style="font-size:11px;color:#1e9e5a;font-weight:700">[v13 · 21/10 (josenilton)]</span></b>
+      <b style="font-size:16px">Relatorio de Folgas <span style="font-size:11px;color:#1e9e5a;font-weight:700">[v14 · 21/10 (motoristas salvos)]</span></b>
       <button onclick="fecharRelFolga()" style="border:none;background:#eef1f6;border-radius:8px;padding:6px 12px;cursor:pointer;font-weight:600">Fechar</button>
     </div>
     <div style="background:#f7f9fc;border:1px solid #e6e9f0;border-radius:10px;padding:12px 14px;margin-bottom:12px">
@@ -2068,6 +2081,6 @@ atualizarBadgeFretes();renderMot();renderP();renderD();calc();
   };
 })();
 </script>
-<div id="ver-badge" style="position:fixed;bottom:6px;right:8px;background:#1f2430;color:#fff;font-size:10px;padding:2px 8px;border-radius:10px;z-index:99998;opacity:.85">v13 · 21/10 (josenilton)</div>
+<div id="ver-badge" style="position:fixed;bottom:6px;right:8px;background:#1f2430;color:#fff;font-size:10px;padding:2px 8px;border-radius:10px;z-index:99998;opacity:.85">v14 · 21/10 (motoristas salvos)</div>
 </body>
 </html>
